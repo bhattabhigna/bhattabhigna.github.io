@@ -7,6 +7,6 @@ excerpt: 'Studies the nonlinear wave dispersion properties of a damped beam on a
 date: 2024-04-01
 venue: 'Physical Review E, 110(4)'
 slidesurl: 
-paperurl: 
+paperurl: http://bhattabhigna.github.io/files/PRE_NonlinearSupports.pdf
 citation: 'Bhatt, A., Bera, K. K., & Banerjee, A. (2024). Wave dispersion in a damped beam supported by cubic nonlinear springs: A multiscale freewave approach. Physical Review E, 110(4), 044213.'
 ---

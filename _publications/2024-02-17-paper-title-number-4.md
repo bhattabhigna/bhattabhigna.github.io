@@ -7,7 +7,7 @@ excerpt: 'Demonstrates vibration isolation effects using a combination of rigid 
 date: 2024-01-01
 venue: 'Journal of Sound and Vibration'
 slidesurl: 
-paperurl: http://bhattabhigna.github.io/files/REVI_JSV.pdf
+paperurl: https://bhattabhigna.github.io/files/REVI_JSV.pdf
 citation: 'Bhatt, A., Patro, S. R., & Banerjee, A. (2024). Vibration isolation by relative resonance perceived in combination of rigid bodies and elastic beams. Journal of Sound and Vibration, 578, 118357.'
 ---
 

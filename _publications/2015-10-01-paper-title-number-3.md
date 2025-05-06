@@ -7,7 +7,7 @@ excerpt: 'Analyzes flexural wave propagation in a rigid-elastic combined metabea
 date: 2023-01-01
 venue: 'Journal of Vibration and Acoustics, 145(1)'
 slidesurl: 
-paperurl: Wave_RECM.pdf
+paperurl: http://bhattabhigna.github.io/files/Wave_RECM.pdf
 citation: 'Bhatt, A., & Banerjee, A. (2023). Flexural wave propagation in rigid elastic combined metabeam. Journal of Vibration and Acoustics, 145(1), 011006.'
 ---
 

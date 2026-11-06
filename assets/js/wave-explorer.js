@@ -116,8 +116,8 @@
   var XA = 140, PITCH = 40, XB = XA + (N - 1) * PITCH, YM = 96, YR = 208, AU = 19, AV = 21, WIDTH = 720;
   el('rect', { x: XA - 20, y: 44, width: XB - XA + 40, height: 222, rx: 6, 'class': 'we-meta' }, anim);
   el('text', { x: (XA + XB) / 2, y: 30, 'text-anchor': 'middle', 'class': 'we-head' }, anim, 'Metamaterial');
-  el('text', { x: 4, y: 30, 'class': 'we-tick' }, anim, 'Non-dispersive');
-  el('text', { x: WIDTH - 4, y: 30, 'text-anchor': 'end', 'class': 'we-tick' }, anim, 'Non-dispersive');
+  el('text', { x: 10, y: 30, 'class': 'we-tick' }, anim, 'Non-dispersive');
+  el('text', { x: WIDTH - 10, y: 30, 'text-anchor': 'end', 'class': 'we-tick' }, anim, 'Non-dispersive');
   var lineL = el('polyline', { 'class': 'we-medium' }, anim), lineR = el('polyline', { 'class': 'we-medium' }, anim);
   var spr = [], rsp = [], mm = [], rm = [], i;
   for (i = 0; i < N - 1; i++) spr.push(el('polyline', { 'class': 'we-spring' }, anim));
@@ -136,7 +136,7 @@
 
   /* ---------- Wave packet panel: phase and group velocity ---------- */
   var pk = root.querySelector('.we-packet'), PW = 720, PBASE = 124, PAMP = 46, CELL = 16, LDOM = 45, SIG = 5;
-  el('text', { x: 4, y: 22, 'class': 'we-head' }, pk, 'Wave packet in the chain');
+  el('text', { x: 14, y: 28, 'class': 'we-head' }, pk, 'Wave packet in the chain');
   el('circle', { cx: 420, cy: 16, r: 7, 'class': 'we-pt-cp' }, pk);
   el('text', { x: 433, y: 22, 'class': 'we-tick' }, pk, 'crest, phase velocity');
   el('circle', { cx: 420, cy: 40, r: 7, 'class': 'we-pt-cg' }, pk);

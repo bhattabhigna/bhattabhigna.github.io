@@ -82,3 +82,17 @@ html[data-theme="dark"] .we-medium { stroke: #6fd3e0; }
 .we-env { fill: none; stroke: var(--global-text-color-light); stroke-width: 1; stroke-dasharray: 4 4; }
 .concept-eq { overflow-x: auto; font-size: 0.95em; }
 .concept-params { font-size: 0.9em; }
+
+/* Animation panels use the same look as the Home page banner */
+.we-anim, .we-packet { background: #12303c; border-radius: 8px; }
+.we-packet { margin-top: 0.5em; }
+.we-anim .we-head, .we-packet .we-head, .we-anim .we-tick, .we-packet .we-tick { fill: #d7e6ea; font-weight: 600; }
+.we-anim .we-meta { fill: #ffffff; opacity: 0.06; }
+.we-anim .we-medium, .we-packet .we-medium { stroke: #6fd3e0; stroke-width: 3; opacity: 0.75; }
+.we-anim .we-spring { stroke: #ff8f7a; }
+.we-anim .we-rspring { stroke: #ffc7a8; opacity: 1; }
+.we-anim .we-mass { fill: #e8eef1; stroke: #12303c; stroke-width: 2; }
+.we-anim .we-res { fill: #ffd166; }
+.we-packet .we-env { stroke: #d7e6ea; opacity: 0.6; }
+.we-packet .we-pt-cp { fill: #c9b6ff; }
+.we-packet .we-pt-cg { fill: #ffd166; }

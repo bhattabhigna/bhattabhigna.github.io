@@ -14,6 +14,7 @@ author_profile: true
 
 <h3>1. Unit cell and dynamic stiffness</h3>
 <p>Main-chain masses \(M\) at nodes 1 and 8 are joined by a spring \(K\). Each carries a resonator \(m_1\) (nodes 2 and 7) through a spring \(k_1\). The equations of motion are</p>
+<figure class="site-figure"><img src="{{ base_path }}/images/schematics/nm-unit-cell.svg" alt="Unit cell: main masses M at nodes 1 and 8 joined by spring K, each with a resonator m1 attached through spring k1 at nodes 2 and 7"><figcaption>Unit cell of the negative mass (NM) system. Node numbers follow the generalised system in the paper.</figcaption></figure>
 <div class="concept-eq">\[ M\ddot{u}_1+K(u_1-u_8)+k_1(u_1-u_2)=0, \qquad m_1\ddot{u}_2+k_1(u_2-u_1)=0 \]</div>
 <div class="concept-eq">\[ M\ddot{u}_8+K(u_8-u_1)+k_1(u_8-u_7)=0, \qquad m_1\ddot{u}_7+k_1(u_7-u_8)=0 \]</div>
 <p>With \(\ddot{(\bullet)}=-\omega^2(\bullet)\), condensing out nodes 2 and 7 gives the dynamic stiffness matrix, and its inverse gives the receptance matrix:</p>

@@ -15,13 +15,13 @@ author_profile: true
 ## Recent work
 
 - **Disordered metamaterials.** Wave dispersion and localisation in disordered systems, using uncertainty quantification and statistical modelling (IIT Delhi).
-- **AI-assisted metamaterial design.** Design of metamaterial platforms for low-frequency vibration isolation, on a Naval Research Board (DRDO) project (IIT Delhi).
 
-## Where this work is heading
+## Research directions and interests
 
 - Extending metamaterial design for practical vibration control.
 - Exploring metamaterial concepts for energy harvesting and structural health monitoring.
-- Validating theory through experiments and working with industry on translational research.
+- Disordered metamaterials and Anderson localisation.
+- Mechanical computing using metamaterials.
 
 ## Foundations from my published work
 

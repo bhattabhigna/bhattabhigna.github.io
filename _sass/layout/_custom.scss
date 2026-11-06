@@ -96,3 +96,10 @@ html[data-theme="dark"] .we-medium { stroke: #6fd3e0; }
 .we-packet .we-env { stroke: #d7e6ea; opacity: 0.6; }
 .we-packet .we-pt-cp { fill: #c9b6ff; }
 .we-packet .we-pt-cg { fill: #ffd166; }
+.eq-with-figure { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 0.75em; align-items: center; margin: 0.5em 0 1em; }
+.eq-with-figure .site-figure { margin: 0; }
+.eq-with-figure .concept-eq { font-size: 0.82em; }
+@media (max-width: 600px) {
+  .eq-with-figure { grid-template-columns: 1fr; }
+  .eq-with-figure .site-figure { max-width: 240px; margin: 0 auto; }
+}

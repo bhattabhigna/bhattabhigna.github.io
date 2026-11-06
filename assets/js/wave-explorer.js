@@ -1,7 +1,7 @@
 /* Interactive dispersion explorer, following Bhatt, Banerjee and Adhikari,
    J. Sound Vib. 541 (2022) 117318, negative mass (NM) monocoupled system.
    cos(kappa) = g(eta^2) = x, kappa = alpha + i beta, eta = w / sqrt(K/M).
-   Unit cell: mass M with resonator (m1, k1) at each node, spring K between.
+   Unit cell: mass M with resonator (m, k1) at each node, spring K between.
    Finite chain: N cells between semi-infinite non-dispersive media whose
    impedance equals the long-wave limit of the Bloch impedance. */
 (function () {

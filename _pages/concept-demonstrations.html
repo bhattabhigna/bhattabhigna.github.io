@@ -10,15 +10,21 @@ author_profile: true
 {% include wave-explorer.html %}
 
 <h2>Formulation</h2>
-<p>This follows the negative mass (NM) monocoupled system and the method of <a href="{{ base_path }}/publication/2022-09-01-closed-form-solutions-monocoupled">Bhatt, Banerjee and Adhikari (2022)</a>, obtained from its generalised system by setting \(m_a=0\) and \(m_2=0\).</p>
+<p>This follows the negative mass (NM) monocoupled system and the method of <a href="{{ base_path }}/publication/2022-09-01-closed-form-solutions-monocoupled">Bhatt, Banerjee and Adhikari (2022)</a>, obtained from its generalised system by setting \(m_a=0\) and \(m_2=0\), with \(m_1\) written as \(m\).</p>
 
 <h3>1. Unit cell and dynamic stiffness</h3>
-<p>Main-chain masses \(M\) at nodes 1 and 8 are joined by a spring \(K\). Each carries a resonator \(m_1\) (nodes 2 and 7) through a spring \(k_1\). The equations of motion are</p>
-<figure class="site-figure"><img src="{{ base_path }}/images/schematics/nm-unit-cell.svg" alt="Unit cell: main masses M at nodes 1 and 8 joined by spring K, each with a resonator m1 attached through spring k1 at nodes 2 and 7"><figcaption>Unit cell of the negative mass (NM) system. Node numbers follow the generalised system in the paper.</figcaption></figure>
-<div class="concept-eq">\[ M\ddot{u}_1+K(u_1-u_8)+k_1(u_1-u_2)=0, \qquad m_1\ddot{u}_2+k_1(u_2-u_1)=0 \]</div>
-<div class="concept-eq">\[ M\ddot{u}_8+K(u_8-u_1)+k_1(u_8-u_7)=0, \qquad m_1\ddot{u}_7+k_1(u_7-u_8)=0 \]</div>
-<p>With \(\ddot{(\bullet)}=-\omega^2(\bullet)\), condensing out nodes 2 and 7 gives the dynamic stiffness matrix, and its inverse gives the receptance matrix:</p>
-<div class="concept-eq">\[ \mathbf{D}_{yc}=\begin{bmatrix} D & -K\\ -K & D\end{bmatrix}, \qquad D=-\omega^2M+K+k_1+\frac{k_1^2}{\omega^2m_1-k_1} \]</div>
+<p>Main-chain masses \(M\) at nodes 1 and 4 are joined by a spring \(K\). Each carries a resonator \(m\) (nodes 2 and 3) through a spring \(k_1\). The equations of motion are</p>
+<div class="eq-with-figure">
+<figure class="site-figure"><img src="{{ base_path }}/images/schematics/nm-unit-cell.svg" alt="Unit cell: masses M at nodes 1 and 4 joined by spring K, with resonators m at nodes 2 and 3 attached through springs k1"></figure>
+<div class="eq-stack">
+<div class="concept-eq">\[ M\ddot{u}_1+K(u_1-u_4)+k_1(u_1-u_2)=0 \]</div>
+<div class="concept-eq">\[ m\ddot{u}_2+k_1(u_2-u_1)=0 \]</div>
+<div class="concept-eq">\[ m\ddot{u}_3+k_1(u_3-u_4)=0 \]</div>
+<div class="concept-eq">\[ M\ddot{u}_4+K(u_4-u_1)+k_1(u_4-u_3)=0 \]</div>
+</div>
+</div>
+<p>With \(\ddot{(\bullet)}=-\omega^2(\bullet)\), condensing out nodes 2 and 3 gives the dynamic stiffness matrix, and its inverse gives the receptance matrix:</p>
+<div class="concept-eq">\[ \mathbf{D}_{yc}=\begin{bmatrix} D & -K\\ -K & D\end{bmatrix}, \qquad D=-\omega^2M+K+k_1+\frac{k_1^2}{\omega^2m-k_1} \]</div>
 <div class="concept-eq">\[ \boldsymbol{\alpha}_R=\mathbf{D}_{yc}^{-1}, \qquad \alpha_{LL}=\frac{D}{|\mathbf{D}_{yc}|}, \qquad \alpha_{LR}=\frac{K}{|\mathbf{D}_{yc}|} \]</div>
 
 <h3>2. Dispersion relation</h3>
@@ -27,7 +33,7 @@ author_profile: true
 <p>The wave propagates with \(\alpha=\cos^{-1}x\) and \(\beta=0\) when \(x^2\lt 1\). When \(x^2\gt 1\) it attenuates, with \(\alpha=\pi\) for \(x\lt -1\), \(\alpha=0\) for \(x\gt 1\), and \(\beta=\cosh^{-1}|x|\).</p>
 
 <h3>3. Peak and bounds of the attenuation band</h3>
-<p>Using \(\eta=\omega/\sqrt{K/M}\), \(\theta_{r1}=m_1/M\) and \(\eta_{r1}=\sqrt{k_1/m_1}/\sqrt{K/M}\), the dispersion relation takes the rational form</p>
+<p>Using \(\eta=\omega/\sqrt{K/M}\), \(\theta_{r1}=m/M\) and \(\eta_{r1}=\sqrt{k_1/m}/\sqrt{K/M}\), the dispersion relation takes the rational form</p>
 <div class="concept-eq">\[ g(\eta^2)=1+\frac{R(\eta^2)}{Q(\eta^2)}, \qquad R=\eta^4-\eta^2\eta_{r1}^2(1+\theta_{r1}), \qquad Q=\eta_{r1}^2-\eta^2 \]</div>
 <p>The attenuation peak is at \(Q=0\), and the band boundaries are at \(R=0\) (\(\kappa=0\)) and \(R+2Q=0\) (\(\kappa=\pi\), the Bragg condition):</p>
 <div class="concept-eq">\[ \xi_{NM}=\eta_{r1}, \qquad \zeta_{r1}=\eta_{r1}\sqrt{1+\theta_{r1}} \]</div>
@@ -48,7 +54,7 @@ author_profile: true
 <p>Dividing force by velocity amplitude gives the Bloch impedance of a propagating wave:</p>
 <div class="concept-eq">\[ Z_B=\frac{K\sin\alpha}{\omega}, \qquad \frac{Z_B}{\sqrt{KM}}=\frac{\sin\alpha}{\eta} \]</div>
 <p>This value applies when the cell boundary passes through the node masses, as in this unit cell. It depends on where the boundary is placed. In the long-wave limit, it gives the impedance chosen for the two media:</p>
-<div class="concept-eq">\[ Z_0=\lim_{\omega\to0}Z_B=\sqrt{2K(M+m_1)}, \qquad c_0=\frac{\omega}{\kappa_0}=L\sqrt{\frac{K}{2(M+m_1)}} \]</div>
+<div class="concept-eq">\[ Z_0=\lim_{\omega\to0}Z_B=\sqrt{2K(M+m)}, \qquad c_0=\frac{\omega}{\kappa_0}=L\sqrt{\frac{K}{2(M+m)}} \]</div>
 
 <h3>Finite chain between the two media</h3>
 <p>The media are semi-infinite, so their far ends do not reflect. For incident, reflected and transmitted amplitudes \(U_I\), \(U_R\) and \(U_T\), with \(\kappa_0\) the wavenumber per cell and \(n\) measured from each interface:</p>

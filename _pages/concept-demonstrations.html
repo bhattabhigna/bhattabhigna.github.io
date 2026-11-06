@@ -13,11 +13,13 @@ author_profile: true
 
 <h3>1. Mass-in-mass chain</h3>
 <p>Each cell has an outer mass \(m_1\) with displacement \(u_n\), and an internal resonator \(m_2\) with displacement \(v_n\). The cells are joined by springs \(k_1\), the resonator is attached by \(k_2\), and the cell length is \(L\).</p>
-<div class="concept-eq">\[ m_1\ddot{u}_n = k_1\left(u_{n+1}-2u_n+u_{n-1}\right)+k_2\left(v_n-u_n\right), \qquad m_2\ddot{v}_n = k_2\left(u_n-v_n\right) \]</div>
+<div class="concept-eq">\[ m_1\ddot{u}_n = k_1\left(u_{n+1}-2u_n+u_{n-1}\right)+k_2\left(v_n-u_n\right) \]</div>
+<div class="concept-eq">\[ m_2\ddot{v}_n = k_2\left(u_n-v_n\right) \]</div>
 
 <h3>2. Effective mass</h3>
 <p>For harmonic motion at frequency \(\omega\), with resonator frequency \(\omega_0^2=k_2/m_2\), eliminating \(v_n\) gives a frequency-dependent mass. It becomes negative just above \(\omega_0\).</p>
-<div class="concept-eq">\[ v_n=\frac{\omega_0^2}{\omega_0^2-\omega^2}\,u_n, \qquad m_{\mathrm{eff}}(\omega)=m_1+\frac{m_2\,\omega_0^2}{\omega_0^2-\omega^2} \]</div>
+<div class="concept-eq">\[ v_n=\frac{\omega_0^2}{\omega_0^2-\omega^2}\,u_n \]</div>
+<div class="concept-eq">\[ m_{\mathrm{eff}}(\omega)=m_1+\frac{m_2\,\omega_0^2}{\omega_0^2-\omega^2} \]</div>
 
 <h3>3. Dispersion relation and bandgaps</h3>
 <p>Substituting the Bloch solution \(u_n=U\,e^{i(\omega t-qnL)}\) gives</p>
@@ -33,12 +35,15 @@ author_profile: true
 
 <h3>5. Finite chain between non-dispersive media</h3>
 <p>The two media are semi-infinite, so their far ends do not reflect. Their wave speed and impedance match the long-wave limit of the chain, with \(\kappa=\omega/c_0\):</p>
-<div class="concept-eq">\[ c_0=L\sqrt{\frac{k_1}{m_1+m_2}}, \qquad Z=\sqrt{k_1\left(m_1+m_2\right)} \]</div>
+<div class="concept-eq">\[ c_0=L\sqrt{\frac{k_1}{m_1+m_2}} \]</div>
+<div class="concept-eq">\[ Z=\sqrt{k_1\left(m_1+m_2\right)} \]</div>
 <p>With incident amplitude \(a\), reflected amplitude \(r\) and transmitted amplitude \(t\), and with \(x\) measured from the first cell on the left and from cell \(N\) on the right, the fields are</p>
-<div class="concept-eq">\[ u_{\mathrm{left}}=\left(a\,e^{-i\kappa x}+r\,e^{i\kappa x}\right)e^{i\omega t}, \qquad u_{\mathrm{right}}=t\,e^{-i\kappa x}\,e^{i\omega t} \]</div>
+<div class="concept-eq">\[ u_{\mathrm{left}}=\left(a\,e^{-i\kappa x}+r\,e^{i\kappa x}\right)e^{i\omega t} \]</div>
+<div class="concept-eq">\[ u_{\mathrm{right}}=t\,e^{-i\kappa x}\,e^{i\omega t} \]</div>
 <p>Force balance at each cell gives a tridiagonal system for \(N=12\) cells:</p>
 <div class="concept-eq">\[ \left(k_1-\omega^2 m_{\mathrm{eff}}+i\omega Z\right)u_1-k_1u_2=2i\omega Z\,a \]</div>
-<div class="concept-eq">\[ -k_1u_{n-1}+\left(2k_1-\omega^2 m_{\mathrm{eff}}\right)u_n-k_1u_{n+1}=0, \qquad 1&lt;n&lt;N \]</div>
+<div class="concept-eq">\[ -k_1u_{n-1}+\left(2k_1-\omega^2 m_{\mathrm{eff}}\right)u_n-k_1u_{n+1}=0 \]</div>
+<p>for \(1&lt;n&lt;N\), and at the last cell</p>
 <div class="concept-eq">\[ -k_1u_{N-1}+\left(k_1-\omega^2 m_{\mathrm{eff}}+i\omega Z\right)u_N=0 \]</div>
 <p>The interface conditions then give \(r\) and \(t\). With no damping, energy is conserved:</p>
 <div class="concept-eq">\[ r=u_1-a, \qquad t=u_N, \qquad |r|^2+|t|^2=|a|^2 \]</div>

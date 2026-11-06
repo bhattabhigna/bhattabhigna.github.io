@@ -5,55 +5,70 @@ author_profile: true
 ---
 
 <h2>Waves through a locally resonant metamaterial</h2>
-<p>A chain of twelve mass-in-mass cells sits between two non-dispersive media. Choose a frequency and see whether vibration crosses the chain, and how fast its phase and energy travel.</p>
+<p>A chain of twelve unit cells sits between two non-dispersive media. Choose a frequency and see whether vibration crosses the chain, and how fast its phase and energy travel.</p>
 
 {% include wave-explorer.html %}
 
-<h2>Governing equations</h2>
+<h2>Formulation</h2>
+<p>This follows the negative mass (NM) monocoupled system and the method of <a href="{{ base_path }}/publication/2022-09-01-closed-form-solutions-monocoupled">Bhatt, Banerjee and Adhikari (2022)</a>, obtained from its generalised system by setting \(m_a=0\) and \(m_2=0\).</p>
 
-<h3>1. Mass-in-mass chain</h3>
-<p>Each cell has an outer mass \(m_1\) with displacement \(u_n\), and an internal resonator \(m_2\) with displacement \(v_n\). The cells are joined by springs \(k_1\), the resonator is attached by \(k_2\), and the cell length is \(L\).</p>
-<div class="concept-eq">\[ m_1\ddot{u}_n = k_1\left(u_{n+1}-2u_n+u_{n-1}\right)+k_2\left(v_n-u_n\right) \]</div>
-<div class="concept-eq">\[ m_2\ddot{v}_n = k_2\left(u_n-v_n\right) \]</div>
+<h3>1. Unit cell and dynamic stiffness</h3>
+<p>Main-chain masses \(M\) at nodes 1 and 8 are joined by a spring \(K\). Each carries a resonator \(m_1\) (nodes 2 and 7) through a spring \(k_1\). The equations of motion are</p>
+<div class="concept-eq">\[ M\ddot{u}_1+K(u_1-u_8)+k_1(u_1-u_2)=0, \qquad m_1\ddot{u}_2+k_1(u_2-u_1)=0 \]</div>
+<div class="concept-eq">\[ M\ddot{u}_8+K(u_8-u_1)+k_1(u_8-u_7)=0, \qquad m_1\ddot{u}_7+k_1(u_7-u_8)=0 \]</div>
+<p>With \(\ddot{(\bullet)}=-\omega^2(\bullet)\), condensing out nodes 2 and 7 gives the dynamic stiffness matrix, and its inverse gives the receptance matrix:</p>
+<div class="concept-eq">\[ \mathbf{D}_{yc}=\begin{bmatrix} D & -K\\ -K & D\end{bmatrix}, \qquad D=-\omega^2M+K+k_1+\frac{k_1^2}{\omega^2m_1-k_1} \]</div>
+<div class="concept-eq">\[ \boldsymbol{\alpha}_R=\mathbf{D}_{yc}^{-1}, \qquad \alpha_{LL}=\frac{D}{|\mathbf{D}_{yc}|}, \qquad \alpha_{LR}=\frac{K}{|\mathbf{D}_{yc}|} \]</div>
 
-<h3>2. Effective mass</h3>
-<p>For harmonic motion at frequency \(\omega\), with resonator frequency \(\omega_0^2=k_2/m_2\), eliminating \(v_n\) gives a frequency-dependent mass. It becomes negative just above \(\omega_0\).</p>
-<div class="concept-eq">\[ v_n=\frac{\omega_0^2}{\omega_0^2-\omega^2}\,u_n \]</div>
-<div class="concept-eq">\[ m_{\mathrm{eff}}(\omega)=m_1+\frac{m_2\,\omega_0^2}{\omega_0^2-\omega^2} \]</div>
+<h3>2. Dispersion relation</h3>
+<p>Bloch's theorem relates the left and right displacements and forces through the propagation constant \(\kappa=\alpha+i\beta\):</p>
+<div class="concept-eq">\[ d_R=e^{i\kappa}d_L, \qquad f_R=-e^{i\kappa}f_L, \qquad \cos\kappa=\frac{\alpha_{LL}}{\alpha_{LR}}=g(\omega^2)=x \]</div>
+<p>The wave propagates with \(\alpha=\cos^{-1}x\) and \(\beta=0\) when \(x^2\lt 1\). When \(x^2\gt 1\) it attenuates, with \(\alpha=\pi\) for \(x\lt -1\), \(\alpha=0\) for \(x\gt 1\), and \(\beta=\cosh^{-1}|x|\).</p>
 
-<h3>3. Dispersion relation and bandgaps</h3>
-<p>Substituting the Bloch solution \(u_n=U\,e^{i(\omega t-qnL)}\) gives</p>
-<div class="concept-eq">\[ \cos(qL)=\Gamma(\omega)=1-\frac{m_{\mathrm{eff}}(\omega)\,\omega^2}{2k_1} \]</div>
-<p>Waves propagate when \(|\Gamma|\le 1\). Otherwise \(q\) is complex and the amplitude decays along the chain, which defines a bandgap:</p>
-<div class="concept-eq">\[ \mathrm{Im}(qL)=\cosh^{-1}|\Gamma(\omega)| \]</div>
+<h3>3. Peak and bounds of the attenuation band</h3>
+<p>Using \(\eta=\omega/\sqrt{K/M}\), \(\theta_{r1}=m_1/M\) and \(\eta_{r1}=\sqrt{k_1/m_1}/\sqrt{K/M}\), the dispersion relation takes the rational form</p>
+<div class="concept-eq">\[ g(\eta^2)=1+\frac{R(\eta^2)}{Q(\eta^2)}, \qquad R=\eta^4-\eta^2\eta_{r1}^2(1+\theta_{r1}), \qquad Q=\eta_{r1}^2-\eta^2 \]</div>
+<p>The attenuation peak is at \(Q=0\), and the band boundaries are at \(R=0\) (\(\kappa=0\)) and \(R+2Q=0\) (\(\kappa=\pi\), the Bragg condition):</p>
+<div class="concept-eq">\[ \xi_{NM}=\eta_{r1}, \qquad \zeta_{r1}=\eta_{r1}\sqrt{1+\theta_{r1}} \]</div>
+<div class="concept-eq">\[ \eta_{B}^2=\frac{1}{2}\left[b\mp\sqrt{b^2-8\eta_{r1}^2}\right], \qquad b=2+\eta_{r1}^2(1+\theta_{r1}) \]</div>
+<p>The demonstration uses \(\theta_{r1}=0.5\) and \(\eta_{r1}=1\). The Bragg boundaries are then \(\eta_B=0.848\) and \(1.668\), the peak is at \(\eta=1\), and \(\zeta_{r1}=1.225\).</p>
 
-<h3>4. Phase and group velocity</h3>
-<p>The phase velocity is the speed of a crest, and the group velocity is the speed of the envelope. Differentiating the dispersion relation gives \(c_g\) directly.</p>
-<div class="concept-eq">\[ c_p=\frac{\omega}{q}, \qquad c_g=\frac{d\omega}{dq}=-\frac{L\sin(qL)}{d\Gamma/d\omega} \]</div>
-<p>The wave packet is drawn using the first-order form, which neglects the packet spreading over time:</p>
-<div class="concept-eq">\[ u(x,t)\approx A\!\left(x-c_g t\right)\cos\!\left(qx-\omega t\right) \]</div>
+<h2>Velocity formulation</h2>
+<p>In a propagation band, with \(L\) the cell length, the velocities in units of \(L\sqrt{K/M}\) follow from \(\cos\alpha=g(\eta^2)\):</p>
+<div class="concept-eq">\[ c_p=\frac{\eta}{\alpha}, \qquad c_g=\frac{d\eta}{d\alpha}=-\frac{\sin\alpha}{dg/d\eta} \]</div>
+<p>\(\sin\alpha\) vanishes at both \(\kappa=0\) and \(\kappa=\pi\), so \(c_g=0\) at every band boundary, while \(c_p\) stays finite at the Bragg boundary. Solving \(\cos\kappa=g(\eta^2)\) gives each band exactly, with the minus sign for the lower band and the plus sign for the upper band:</p>
+<div class="concept-eq">\[ \eta^2(\kappa)=\frac{1}{2}\left[B\mp\sqrt{B^2-4(1-\cos\kappa)\,\eta_{r1}^2}\right], \qquad B=\eta_{r1}^2(1+\theta_{r1})+1-\cos\kappa \]</div>
+<p>The wave packet panel is an exact sum of Bloch waves with a Gaussian spectrum of width \(\sigma_\kappa\), so it includes dispersive spreading:</p>
+<div class="concept-eq">\[ u(x,t)=\mathrm{Re}\sum_j e^{-(\kappa_j-\alpha)^2/2\sigma_\kappa^2}\,e^{i\left[\kappa_jx-\eta(\kappa_j)t\right]} \]</div>
 
-<h3>5. Finite chain between non-dispersive media</h3>
-<p>The two media are semi-infinite, so their far ends do not reflect. Their wave speed and impedance match the long-wave limit of the chain, with \(\kappa=\omega/c_0\):</p>
-<div class="concept-eq">\[ c_0=L\sqrt{\frac{k_1}{m_1+m_2}} \]</div>
-<div class="concept-eq">\[ Z=\sqrt{k_1\left(m_1+m_2\right)} \]</div>
-<p>With incident amplitude \(a\), reflected amplitude \(r\) and transmitted amplitude \(t\), and with \(x\) measured from the first cell on the left and from cell \(N\) on the right, the fields are</p>
-<div class="concept-eq">\[ u_{\mathrm{left}}=\left(a\,e^{-i\kappa x}+r\,e^{i\kappa x}\right)e^{i\omega t} \]</div>
-<div class="concept-eq">\[ u_{\mathrm{right}}=t\,e^{-i\kappa x}\,e^{i\omega t} \]</div>
-<p>Force balance at each cell gives a tridiagonal system for \(N=12\) cells:</p>
-<div class="concept-eq">\[ \left(k_1-\omega^2 m_{\mathrm{eff}}+i\omega Z\right)u_1-k_1u_2=2i\omega Z\,a \]</div>
-<div class="concept-eq">\[ -k_1u_{n-1}+\left(2k_1-\omega^2 m_{\mathrm{eff}}\right)u_n-k_1u_{n+1}=0 \]</div>
-<p>for \(1&lt;n&lt;N\), and at the last cell</p>
-<div class="concept-eq">\[ -k_1u_{N-1}+\left(k_1-\omega^2 m_{\mathrm{eff}}+i\omega Z\right)u_N=0 \]</div>
-<p>The interface conditions then give \(r\) and \(t\). With no damping, energy is conserved:</p>
-<div class="concept-eq">\[ r=u_1-a, \qquad t=u_N, \qquad |r|^2+|t|^2=|a|^2 \]</div>
+<h2>Impedance formulation</h2>
+<p>From the receptance relation and Bloch's theorem, with \(D=K\cos\kappa\), the force at the left node of the cell is</p>
+<div class="concept-eq">\[ f_L=\left(D-Ke^{i\kappa}\right)d_L=-iK\sin\kappa\;d_L \]</div>
+<p>Dividing force by velocity amplitude gives the Bloch impedance of a propagating wave:</p>
+<div class="concept-eq">\[ Z_B=\frac{K\sin\alpha}{\omega}, \qquad \frac{Z_B}{\sqrt{KM}}=\frac{\sin\alpha}{\eta} \]</div>
+<p>This value applies when the cell boundary passes through the node masses, as in this unit cell. It depends on where the boundary is placed. In the long-wave limit, it gives the impedance chosen for the two media:</p>
+<div class="concept-eq">\[ Z_0=\lim_{\omega\to0}Z_B=\sqrt{2K(M+m_1)}, \qquad c_0=\frac{\omega}{\kappa_0}=L\sqrt{\frac{K}{2(M+m_1)}} \]</div>
 
-<p class="concept-params"><strong>Parameters used:</strong> \(m_2/m_1=0.5\) and \(k_1/m_1=\omega_0^2\). Frequencies are normalised by \(\omega_0\), and velocities are given in units of \(L\omega_0\).</p>
+<h3>Finite chain between the two media</h3>
+<p>The media are semi-infinite, so their far ends do not reflect. For incident, reflected and transmitted amplitudes \(U_I\), \(U_R\) and \(U_T\), with \(\kappa_0\) the wavenumber per cell and \(n\) measured from each interface:</p>
+<div class="concept-eq">\[ u_{\mathrm{left}}=\left(U_Ie^{i\kappa_0n}+U_Re^{-i\kappa_0n}\right)e^{-i\omega t}, \qquad u_{\mathrm{right}}=U_Te^{i\kappa_0n}e^{-i\omega t} \]</div>
+<p>Assembling \(N=12\) cells gives a tridiagonal system for the node displacements \(d_0\) to \(d_N\):</p>
+<div class="concept-eq">\[ (D-i\omega Z_0)\,d_0-Kd_1=-2i\omega Z_0U_I \]</div>
+<div class="concept-eq">\[ -Kd_{n-1}+2Dd_n-Kd_{n+1}=0, \qquad 0\lt n\lt N \]</div>
+<div class="concept-eq">\[ -Kd_{N-1}+(D-i\omega Z_0)\,d_N=0 \]</div>
+<div class="concept-eq">\[ U_R=d_0-U_I, \qquad U_T=d_N, \qquad |U_R|^2+|U_T|^2=|U_I|^2 \]</div>
+<p>In a propagation band this solves to the closed form</p>
+<div class="concept-eq">\[ \left|\frac{U_T}{U_I}\right|^2=\frac{1}{1+\frac{1}{4}\left(\frac{Z_0}{Z_B}-\frac{Z_B}{Z_0}\right)^2\sin^2(N\alpha)} \]</div>
+
+<h2>What happens at the band edges</h2>
+<p>\(Z_B\to0\) and \(c_g\to0\) at a band boundary. Taking this limit at \(\eta_B\) gives a transmission that is small but not zero, and falls as \(1/N\) instead of exponentially:</p>
+<div class="concept-eq">\[ \left|\frac{U_T}{U_I}\right|_{\eta_B}=\frac{1}{\sqrt{1+\left(N\eta_BZ_0/2\sqrt{KM}\right)^2}} \]</div>
+<p>For this chain that is 11% at \(\eta=0.848\) and 6% at \(\eta=1.668\). The infinite-chain band edge is sharp, but a finite chain has only a gradual transition around it. The impedance mismatch also reflects most of the wave just inside the band, so a finite chain is not a sharp switch at this frequency.</p>
 
 <h2>References</h2>
 <ol class="concept-params">
+  <li>A. Bhatt, A. Banerjee and S. Adhikari, <a href="https://doi.org/10.1016/j.jsv.2022.117318">Closed-form solutions for attenuation peaks and band boundaries of general monocoupled systems</a>, <em>Journal of Sound and Vibration</em>, 541, 117318, 2022.</li>
   <li>L. Brillouin, <em>Wave Propagation in Periodic Structures</em>, McGraw-Hill, 1946.</li>
-  <li>H. H. Huang, C. T. Sun and G. L. Huang, On the negative effective mass density in acoustic metamaterials, <em>International Journal of Engineering Science</em>, 47, 2009.</li>
   <li>M. I. Hussein, M. J. Leamy and M. Ruzzene, Dynamics of phononic materials and structures: Historical origins, recent progress, and future outlook, <em>Applied Mechanics Reviews</em>, 66, 040802, 2014.</li>
-  <li>A. Bhatt, A. Banerjee and S. Adhikari, <a href="{{ base_path }}/publication/2022-09-01-closed-form-solutions-monocoupled">Closed-form solutions for attenuation peaks and band boundaries of general monocoupled systems</a>, <em>Journal of Sound and Vibration</em>, 541, 117318, 2022.</li>
+  <li>D. J. Colquitt, R. V. Craster and M. Makwana, <a href="https://arxiv.org/abs/1407.2059">High frequency homogenisation for elastic lattices</a>, on behaviour close to band edges.</li>
 </ol>

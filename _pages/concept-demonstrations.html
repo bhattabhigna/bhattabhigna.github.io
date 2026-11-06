@@ -10,22 +10,22 @@ author_profile: true
 {% include wave-explorer.html %}
 
 <h2>Formulation</h2>
-<p>This follows the negative mass (NM) monocoupled system and the method of <a href="{{ base_path }}/publication/2022-09-01-closed-form-solutions-monocoupled">Bhatt, Banerjee and Adhikari (2022)</a>, obtained from its generalised system by setting \(m_a=0\) and \(m_2=0\), with \(m_1\) written as \(m\).</p>
+<p>This follows the negative mass (NM) monocoupled system and the method of <a href="{{ base_path }}/publication/2022-09-01-closed-form-solutions-monocoupled">Bhatt, Banerjee and Adhikari (2022)</a>, obtained from its generalised system by setting \(m_a=0\) and \(m_2=0\), with \(m_1\), \(k_1\), \(\theta_{r1}\), \(\eta_{r1}\) and \(\zeta_{r1}\) written as \(m\), \(k\), \(\theta_r\), \(\eta_r\) and \(\zeta_r\).</p>
 
 <h3>1. Unit cell and dynamic stiffness</h3>
-<p>Main-chain masses \(M\) at nodes 1 and 4 are joined by a spring \(K\). Each carries a resonator \(m\) (nodes 2 and 3) through a spring \(k_1\). The equations of motion are</p>
+<p>Main-chain masses \(M\) at nodes 1 and 4 are joined by a spring \(K\). Each carries a resonator \(m\) (nodes 2 and 3) through a spring \(k\). The equations of motion are</p>
 <div class="eq-with-figure">
-<figure class="site-figure"><img src="{{ base_path }}/images/schematics/nm-unit-cell.svg?v=3" alt="Unit cell: masses M at nodes 1 and 4 joined by spring K, with resonators m at nodes 2 and 3 attached through springs k1"></figure>
+<figure class="site-figure"><img src="{{ base_path }}/images/schematics/nm-unit-cell.svg?v=4" alt="Unit cell: masses M at nodes 1 and 4 joined by spring K, with resonators m at nodes 2 and 3 attached through springs k"></figure>
 <div class="eq-stack">
-<div class="concept-eq">\[ M\ddot{u}_1+K(u_1-u_4)+k_1(u_1-u_2)=0 \]</div>
-<div class="concept-eq">\[ m\ddot{u}_2+k_1(u_2-u_1)=0 \]</div>
-<div class="concept-eq">\[ m\ddot{u}_3+k_1(u_3-u_4)=0 \]</div>
-<div class="concept-eq">\[ M\ddot{u}_4+K(u_4-u_1)+k_1(u_4-u_3)=0 \]</div>
+<div class="concept-eq">\[ M\ddot{u}_1+K(u_1-u_4)+k(u_1-u_2)=0 \]</div>
+<div class="concept-eq">\[ m\ddot{u}_2+k(u_2-u_1)=0 \]</div>
+<div class="concept-eq">\[ m\ddot{u}_3+k(u_3-u_4)=0 \]</div>
+<div class="concept-eq">\[ M\ddot{u}_4+K(u_4-u_1)+k(u_4-u_3)=0 \]</div>
 </div>
 </div>
 <p>With \(\ddot{(\bullet)}=-\omega^2(\bullet)\), condensing out nodes 2 and 3 gives the dynamic stiffness matrix, and its inverse gives the receptance matrix:</p>
 <div class="concept-eq">\[ \mathbf{D}_{yc}=\begin{bmatrix} D & -K\\ -K & D\end{bmatrix} \]</div>
-<div class="concept-eq">\[ D=-\omega^2M+K+k_1+\frac{k_1^2}{\omega^2m-k_1} \]</div>
+<div class="concept-eq">\[ D=-\omega^2M+K+k+\frac{k^2}{\omega^2m-k} \]</div>
 <div class="concept-eq">\[ \boldsymbol{\alpha}_R=\mathbf{D}_{yc}^{-1}, \qquad \alpha_{LL}=\frac{D}{|\mathbf{D}_{yc}|}, \qquad \alpha_{LR}=\frac{K}{|\mathbf{D}_{yc}|} \]</div>
 
 <h3>2. Dispersion relation</h3>
@@ -34,20 +34,20 @@ author_profile: true
 <p>The wave propagates with \(\alpha=\cos^{-1}x\) and \(\beta=0\) when \(x^2\lt 1\). When \(x^2\gt 1\) it attenuates, with \(\alpha=\pi\) for \(x\lt -1\), \(\alpha=0\) for \(x\gt 1\), and \(\beta=\cosh^{-1}|x|\).</p>
 
 <h3>3. Peak and bounds of the attenuation band</h3>
-<p>Using \(\eta=\omega/\sqrt{K/M}\), \(\theta_{r1}=m/M\) and \(\eta_{r1}=\sqrt{k_1/m}/\sqrt{K/M}\), the dispersion relation takes the rational form</p>
+<p>Using \(\eta=\omega/\sqrt{K/M}\), \(\theta_r=m/M\) and \(\eta_r=\sqrt{k/m}/\sqrt{K/M}\), the dispersion relation takes the rational form</p>
 <div class="concept-eq">\[ g(\eta^2)=1+\frac{R(\eta^2)}{Q(\eta^2)} \]</div>
-<div class="concept-eq">\[ R=\eta^4-\eta^2\eta_{r1}^2(1+\theta_{r1}), \qquad Q=\eta_{r1}^2-\eta^2 \]</div>
+<div class="concept-eq">\[ R=\eta^4-\eta^2\eta_r^2(1+\theta_r), \qquad Q=\eta_r^2-\eta^2 \]</div>
 <p>The attenuation peak is at \(Q=0\), and the band boundaries are at \(R=0\) (\(\kappa=0\)) and \(R+2Q=0\) (\(\kappa=\pi\), the Bragg condition):</p>
-<div class="concept-eq">\[ \xi_{NM}=\eta_{r1}, \qquad \zeta_{r1}=\eta_{r1}\sqrt{1+\theta_{r1}} \]</div>
-<div class="concept-eq">\[ \eta_{B}^2=\frac{1}{2}\left[b\mp\sqrt{b^2-8\eta_{r1}^2}\right], \qquad b=2+\eta_{r1}^2(1+\theta_{r1}) \]</div>
-<p>The demonstration uses \(\theta_{r1}=0.5\) and \(\eta_{r1}=1\). The Bragg boundaries are then \(\eta_B=0.848\) and \(1.668\), the peak is at \(\eta=1\), and \(\zeta_{r1}=1.225\).</p>
+<div class="concept-eq">\[ \xi_{NM}=\eta_r, \qquad \zeta_r=\eta_r\sqrt{1+\theta_r} \]</div>
+<div class="concept-eq">\[ \eta_{B}^2=\frac{1}{2}\left[b\mp\sqrt{b^2-8\eta_r^2}\right], \qquad b=2+\eta_r^2(1+\theta_r) \]</div>
+<p>The demonstration uses \(\theta_r=0.5\) and \(\eta_r=1\). The Bragg boundaries are then \(\eta_B=0.848\) and \(1.668\), the peak is at \(\eta=1\), and \(\zeta_r=1.225\).</p>
 
 <h2>Velocity formulation</h2>
 <p>In a propagation band, with \(L\) the cell length, the velocities in units of \(L\sqrt{K/M}\) follow from \(\cos\alpha=g(\eta^2)\):</p>
 <div class="concept-eq">\[ c_p=\frac{\eta}{\alpha}, \qquad c_g=\frac{d\eta}{d\alpha}=-\frac{\sin\alpha}{dg/d\eta} \]</div>
 <p>\(\sin\alpha\) vanishes at both \(\kappa=0\) and \(\kappa=\pi\), so \(c_g=0\) at every band boundary, while \(c_p\) stays finite at the Bragg boundary. Solving \(\cos\kappa=g(\eta^2)\) gives each band exactly, with the minus sign for the lower band and the plus sign for the upper band:</p>
-<div class="concept-eq">\[ \eta^2(\kappa)=\frac{1}{2}\left[B\mp\sqrt{B^2-4(1-\cos\kappa)\,\eta_{r1}^2}\right] \]</div>
-<div class="concept-eq">\[ B=\eta_{r1}^2(1+\theta_{r1})+1-\cos\kappa \]</div>
+<div class="concept-eq">\[ \eta^2(\kappa)=\frac{1}{2}\left[B\mp\sqrt{B^2-4(1-\cos\kappa)\,\eta_r^2}\right] \]</div>
+<div class="concept-eq">\[ B=\eta_r^2(1+\theta_r)+1-\cos\kappa \]</div>
 <p>The wave packet panel is an exact sum of Bloch waves with a Gaussian spectrum of width \(\sigma_\kappa\), so it includes dispersive spreading:</p>
 <div class="concept-eq">\[ u(x,t)=\mathrm{Re}\sum_j e^{-(\kappa_j-\alpha)^2/2\sigma_\kappa^2}\,e^{i\left[\kappa_jx-\eta(\kappa_j)t\right]} \]</div>
 

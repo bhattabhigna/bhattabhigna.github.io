@@ -48,6 +48,12 @@ layout: default
         {{ content }}
 
         {% if page.collection == 'publications' %}
+          {% if page.schematic %}
+          <figure class="site-figure">
+            <img src="{{ base_path }}/images/schematics/{{ page.schematic }}.svg" alt="{{ page.schematic_caption | escape }}">
+            <figcaption>{{ page.schematic_caption }}</figcaption>
+          </figure>
+          {% endif %}
           {% if page.youtube %}{% include youtube.html id=page.youtube title=page.title %}{% endif %}
           {% include publication-links.html pub=page %}
         {% elsif page.citation and page.paperurl and page.slidesurl and page.bibtexurl %}

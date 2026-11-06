@@ -8,6 +8,8 @@ date: 2023-01-01
 venue: 'Journal of Vibration and Acoustics, 145(1), 011006'
 paperurl: https://bhattabhigna.github.io/files/Wave_RECM.pdf
 citation: 'Bhatt, A., & Banerjee, A. (2023). Flexural wave propagation in rigid elastic combined metabeam. Journal of Vibration and Acoustics, 145(1), 011006.'
+schematic: metabeam
+schematic_caption: 'Schematic of the periodic beam and its unit cell, an elastic beam segment combined with a rigid body.'
 doi: 10.1115/1.4055174
 youtube:  # paste the YouTube video ID here, e.g. dQw4w9WgXcQ
 ---

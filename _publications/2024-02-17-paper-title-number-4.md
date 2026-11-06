@@ -8,6 +8,8 @@ date: 2024-02-21
 venue: 'Journal of Sound and Vibration, 578, 118357'
 paperurl: https://bhattabhigna.github.io/files/REVI_JSV.pdf
 citation: 'Bhatt, A., Patro, S. R., & Banerjee, A. (2024). Vibration isolation by relative resonance perceived in combination of rigid bodies and elastic beams. Journal of Sound and Vibration, 578, 118357.'
+schematic: relative-resonance
+schematic_caption: 'Schematic of the isolator: elastic beams joined at their ends, carrying rigid bodies at mid-span. The beam angle is exaggerated for clarity.'
 doi: 10.1016/j.jsv.2024.118357
 youtube:  # paste the YouTube video ID here, e.g. dQw4w9WgXcQ
 ---

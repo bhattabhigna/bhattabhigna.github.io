@@ -14,6 +14,9 @@
 
 <div class="{{ include.type | default: "list" }}__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    {% if post.collection == 'publications' and post.schematic %}
+      <a class="pub-thumb" href="{{ base_path }}{{ post.url }}" aria-hidden="true" tabindex="-1"><img src="{{ base_path }}/images/schematics/{{ post.schematic }}-mini.svg" alt="" loading="lazy"></a>
+    {% endif %}
     {% if include.type == "grid" and teaser %}
       <div class="archive__item-teaser">
         <img src=

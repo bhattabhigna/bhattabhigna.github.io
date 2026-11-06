@@ -8,6 +8,8 @@ date: 2022-09-20
 venue: 'Journal of Sound and Vibration, 541, 117318'
 paperurl: https://bhattabhigna.github.io/files/monocouple_systems_JSV.pdf
 citation: 'Bhatt, A., Banerjee, A., & Adhikari, S. (2022). Closed-form solutions for attenuation peaks and band boundaries of general monocoupled systems. Journal of Sound and Vibration, 541, 117318.'
+schematic: monocoupled
+schematic_caption: 'Schematic of the generalised monocoupled unit cell, with inertial amplifier masses on rigid links and embedded resonators. Setting selected masses to zero recovers the simpler systems covered by the closed-form solutions.'
 doi: 10.1016/j.jsv.2022.117318
 youtube:  # paste the YouTube video ID here, e.g. dQw4w9WgXcQ
 ---

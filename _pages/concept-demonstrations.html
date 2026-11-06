@@ -24,7 +24,8 @@ author_profile: true
 </div>
 </div>
 <p>With \(\ddot{(\bullet)}=-\omega^2(\bullet)\), condensing out nodes 2 and 3 gives the dynamic stiffness matrix, and its inverse gives the receptance matrix:</p>
-<div class="concept-eq">\[ \mathbf{D}_{yc}=\begin{bmatrix} D & -K\\ -K & D\end{bmatrix}, \qquad D=-\omega^2M+K+k_1+\frac{k_1^2}{\omega^2m-k_1} \]</div>
+<div class="concept-eq">\[ \mathbf{D}_{yc}=\begin{bmatrix} D & -K\\ -K & D\end{bmatrix} \]</div>
+<div class="concept-eq">\[ D=-\omega^2M+K+k_1+\frac{k_1^2}{\omega^2m-k_1} \]</div>
 <div class="concept-eq">\[ \boldsymbol{\alpha}_R=\mathbf{D}_{yc}^{-1}, \qquad \alpha_{LL}=\frac{D}{|\mathbf{D}_{yc}|}, \qquad \alpha_{LR}=\frac{K}{|\mathbf{D}_{yc}|} \]</div>
 
 <h3>2. Dispersion relation</h3>
@@ -34,7 +35,8 @@ author_profile: true
 
 <h3>3. Peak and bounds of the attenuation band</h3>
 <p>Using \(\eta=\omega/\sqrt{K/M}\), \(\theta_{r1}=m/M\) and \(\eta_{r1}=\sqrt{k_1/m}/\sqrt{K/M}\), the dispersion relation takes the rational form</p>
-<div class="concept-eq">\[ g(\eta^2)=1+\frac{R(\eta^2)}{Q(\eta^2)}, \qquad R=\eta^4-\eta^2\eta_{r1}^2(1+\theta_{r1}), \qquad Q=\eta_{r1}^2-\eta^2 \]</div>
+<div class="concept-eq">\[ g(\eta^2)=1+\frac{R(\eta^2)}{Q(\eta^2)} \]</div>
+<div class="concept-eq">\[ R=\eta^4-\eta^2\eta_{r1}^2(1+\theta_{r1}), \qquad Q=\eta_{r1}^2-\eta^2 \]</div>
 <p>The attenuation peak is at \(Q=0\), and the band boundaries are at \(R=0\) (\(\kappa=0\)) and \(R+2Q=0\) (\(\kappa=\pi\), the Bragg condition):</p>
 <div class="concept-eq">\[ \xi_{NM}=\eta_{r1}, \qquad \zeta_{r1}=\eta_{r1}\sqrt{1+\theta_{r1}} \]</div>
 <div class="concept-eq">\[ \eta_{B}^2=\frac{1}{2}\left[b\mp\sqrt{b^2-8\eta_{r1}^2}\right], \qquad b=2+\eta_{r1}^2(1+\theta_{r1}) \]</div>
@@ -44,7 +46,8 @@ author_profile: true
 <p>In a propagation band, with \(L\) the cell length, the velocities in units of \(L\sqrt{K/M}\) follow from \(\cos\alpha=g(\eta^2)\):</p>
 <div class="concept-eq">\[ c_p=\frac{\eta}{\alpha}, \qquad c_g=\frac{d\eta}{d\alpha}=-\frac{\sin\alpha}{dg/d\eta} \]</div>
 <p>\(\sin\alpha\) vanishes at both \(\kappa=0\) and \(\kappa=\pi\), so \(c_g=0\) at every band boundary, while \(c_p\) stays finite at the Bragg boundary. Solving \(\cos\kappa=g(\eta^2)\) gives each band exactly, with the minus sign for the lower band and the plus sign for the upper band:</p>
-<div class="concept-eq">\[ \eta^2(\kappa)=\frac{1}{2}\left[B\mp\sqrt{B^2-4(1-\cos\kappa)\,\eta_{r1}^2}\right], \qquad B=\eta_{r1}^2(1+\theta_{r1})+1-\cos\kappa \]</div>
+<div class="concept-eq">\[ \eta^2(\kappa)=\frac{1}{2}\left[B\mp\sqrt{B^2-4(1-\cos\kappa)\,\eta_{r1}^2}\right] \]</div>
+<div class="concept-eq">\[ B=\eta_{r1}^2(1+\theta_{r1})+1-\cos\kappa \]</div>
 <p>The wave packet panel is an exact sum of Bloch waves with a Gaussian spectrum of width \(\sigma_\kappa\), so it includes dispersive spreading:</p>
 <div class="concept-eq">\[ u(x,t)=\mathrm{Re}\sum_j e^{-(\kappa_j-\alpha)^2/2\sigma_\kappa^2}\,e^{i\left[\kappa_jx-\eta(\kappa_j)t\right]} \]</div>
 
@@ -58,7 +61,8 @@ author_profile: true
 
 <h3>Finite chain between the two media</h3>
 <p>The media are semi-infinite, so their far ends do not reflect. For incident, reflected and transmitted amplitudes \(U_I\), \(U_R\) and \(U_T\), with \(\kappa_0\) the wavenumber per cell and \(n\) measured from each interface:</p>
-<div class="concept-eq">\[ u_{\mathrm{left}}=\left(U_Ie^{i\kappa_0n}+U_Re^{-i\kappa_0n}\right)e^{-i\omega t}, \qquad u_{\mathrm{right}}=U_Te^{i\kappa_0n}e^{-i\omega t} \]</div>
+<div class="concept-eq">\[ u_{\mathrm{left}}=\left(U_Ie^{i\kappa_0n}+U_Re^{-i\kappa_0n}\right)e^{-i\omega t} \]</div>
+<div class="concept-eq">\[ u_{\mathrm{right}}=U_Te^{i\kappa_0n}e^{-i\omega t} \]</div>
 <p>Assembling \(N=12\) cells gives a tridiagonal system for the node displacements \(d_0\) to \(d_N\):</p>
 <div class="concept-eq">\[ (D-i\omega Z_0)\,d_0-Kd_1=-2i\omega Z_0U_I \]</div>
 <div class="concept-eq">\[ -Kd_{n-1}+2Dd_n-Kd_{n+1}=0, \qquad 0\lt n\lt N \]</div>

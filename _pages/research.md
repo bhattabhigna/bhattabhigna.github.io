@@ -6,11 +6,11 @@ author_profile: true
 
 {% include base_path %}
 
-<figure class="site-figure hero-figure"><img src="{{ base_path }}/images/schematics/hero-waves.svg" alt="Animated illustration of a wave losing amplitude as it passes through a chain of masses with local resonators"></figure>
-
 <p class="lead">My research asks how periodic and locally resonant structures can be designed to control waves and isolate vibration, particularly at low frequencies.</p>
 
-<figure class="site-figure"><img src="{{ base_path }}/images/schematics/bandgap.svg" alt="Dispersion and attenuation curves of a mass-in-mass chain, with a shaded bandgap where waves decay instead of propagating"><figcaption>The central idea: inside a bandgap, waves decay instead of propagating. Illustrative mass-in-mass chain with mass ratio 0.5.</figcaption></figure>
+## Explore a bandgap
+
+{% include wave-explorer.html %}
 
 ## Current focus
 

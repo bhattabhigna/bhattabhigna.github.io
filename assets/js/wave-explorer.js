@@ -1,11 +1,14 @@
-/* Interactive dispersion explorer for a mass-in-mass chain.
-   u_n(t) = Re[U lambda^n exp(i w t)], with lambda the outgoing Bloch root of
-   lambda + 1/lambda = 2 gamma,  gamma = 1 - meff w^2 / (2 k1).
-   Frequencies are normalised by w0 = sqrt(k2/m2); k1/m1 = w0^2; m2/m1 = 0.5. */
+/* Interactive dispersion explorer.
+   Plots: Bloch dispersion of an infinite mass-in-mass chain,
+   cos(qL) = 1 - meff w^2 / (2 k1), with w normalised by w0 = sqrt(k2/m2),
+   k1/m1 = w0^2 and m2/m1 = 0.5.
+   Animation: harmonic scattering by a finite chain placed between two
+   non-dispersive, semi-infinite media (no reflection from their far ends).
+   Their impedance matches the chain's long-wave limit, Z = sqrt(k1 (m1 + m2)). */
 (function () {
   var root = document.getElementById('wave-explorer');
   if (!root) return;
-  var NS = 'http://www.w3.org/2000/svg', MU = 0.5, WMAX = 2.2, WMIN = 0.05, WTOP = 2.12;
+  var NS = 'http://www.w3.org/2000/svg', MU = 0.5, WMAX = 2.6, WMIN = 0.05, WTOP = 2.5;
   function el(name, attrs, parent, text) {
     var e = document.createElementNS(NS, name);
     for (var k in attrs) e.setAttribute(k, attrs[k]);
@@ -39,12 +42,12 @@
     gaps.forEach(function (g) {
       el('rect', { x: x[0], y: Y(g[1]), width: x[1] - x[0], height: Y(g[0]) - Y(g[1]), 'class': 'we-gap' }, plot);
     });
-    [0, 0.5, 1, 1.5, 2].forEach(function (t) {
+    [0, 0.5, 1, 1.5, 2, 2.5].forEach(function (t) {
       el('line', { x1: x[0], x2: x[1], y1: Y(t), y2: Y(t), 'class': 'we-grid' }, plot);
     });
     el('path', { d: 'M' + x[0] + ' ' + PY1 + 'V' + PY0 + 'H' + x[1], 'class': 'we-axis' }, plot);
   });
-  [0, 0.5, 1, 1.5, 2].forEach(function (t) {
+  [0, 0.5, 1, 1.5, 2, 2.5].forEach(function (t) {
     el('text', { x: PX[0] - 10, y: Y(t) + 6, 'text-anchor': 'end', 'class': 'we-tick' }, plot, String(t));
   });
   [['0', 0], ['π/2', 0.5], ['π', 1]].forEach(function (t) {
@@ -80,20 +83,44 @@
   var dotA = el('circle', { r: 7, 'class': 'we-dot-att' }, plot);
   var grip = el('rect', { x: 388, y: 0, width: 14, height: 22, rx: 4, 'class': 'we-grip' }, plot);
 
+  /* ---------- Scattering solution ---------- */
+  var N = 8, Z = Math.sqrt(1 + MU), SPEED = 1 / Math.sqrt(1 + MU);
+  function cdiv(a, b) { var d = b[0] * b[0] + b[1] * b[1]; return [(a[0] * b[0] + a[1] * b[1]) / d, (a[1] * b[0] - a[0] * b[1]) / d]; }
+  function cmul(a, b) { return [a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0]]; }
+  function solve(w) {
+    var me = 1 + MU / (1 - w * w), mid = 2 - w * w * me, end = 1 - w * w * me, cp = [], dp = [], n, u = [];
+    /* Tridiagonal system with unit incident amplitude: off-diagonals are -1 */
+    var d0 = [end, w * Z];
+    cp[0] = cdiv([-1, 0], d0);
+    dp[0] = cdiv([0, 2 * w * Z], d0);
+    for (n = 1; n < N; n++) {
+      var dn = n === N - 1 ? [end, w * Z] : [mid, 0];
+      var den = [dn[0] + cp[n - 1][0], dn[1] + cp[n - 1][1]];
+      cp[n] = cdiv([-1, 0], den);
+      dp[n] = cdiv(dp[n - 1], den);
+    }
+    u[N - 1] = dp[N - 1];
+    for (n = N - 2; n >= 0; n--) {
+      var c = cmul(cp[n], u[n + 1]);
+      u[n] = [dp[n][0] - c[0], dp[n][1] - c[1]];
+    }
+    return { u: u, r: [u[0][0] - 1, u[0][1]], t: u[N - 1] };
+  }
+  window.waveExplorerSolve = solve;
+
   /* ---------- Chain animation ---------- */
   var anim = root.querySelector('.we-anim');
-  var N = 12, NP = 4, X0 = 34, PITCH = 43, YM = 92, YR = 180, AU = 24, AV = 26;
-  var pmlX = X0 + (N - 0.5) * PITCH;
-  el('rect', { x: pmlX, y: 40, width: 720 - pmlX, height: 196, rx: 6, 'class': 'we-pml' }, anim);
-  el('text', { x: (pmlX + 720) / 2, y: 30, 'text-anchor': 'middle', 'class': 'we-head' }, anim, 'PML');
-  el('text', { x: 34, y: 30, 'class': 'we-head' }, anim, 'Source');
-  var spr = [], rsp = [], mm = [], rm = [];
-  var T = N + NP;
-  var i;
-  for (i = 0; i < T - 1; i++) spr.push(el('polyline', { 'class': 'we-spring' }, anim));
-  for (i = 0; i < T; i++) rsp.push(el('polyline', { 'class': 'we-rspring' }, anim));
-  for (i = 0; i < T; i++) rm.push(el('circle', { cx: X0 + i * PITCH, r: 7, 'class': 'we-res' }, anim));
-  for (i = 0; i < T; i++) mm.push(el('circle', { cx: X0 + i * PITCH, r: 10, 'class': 'we-mass' }, anim));
+  var XA = 170, PITCH = 54, XB = XA + (N - 1) * PITCH, YM = 96, YR = 208, AU = 19, AV = 21, WIDTH = 720;
+  el('rect', { x: XA - 27, y: 44, width: XB - XA + 54, height: 222, rx: 6, 'class': 'we-meta' }, anim);
+  el('text', { x: (XA + XB) / 2, y: 30, 'text-anchor': 'middle', 'class': 'we-head' }, anim, 'Metamaterial');
+  el('text', { x: 4, y: 30, 'class': 'we-tick' }, anim, 'Non-dispersive');
+  el('text', { x: WIDTH - 4, y: 30, 'text-anchor': 'end', 'class': 'we-tick' }, anim, 'Non-dispersive');
+  var lineL = el('polyline', { 'class': 'we-medium' }, anim), lineR = el('polyline', { 'class': 'we-medium' }, anim);
+  var spr = [], rsp = [], mm = [], rm = [], i;
+  for (i = 0; i < N - 1; i++) spr.push(el('polyline', { 'class': 'we-spring' }, anim));
+  for (i = 0; i < N; i++) rsp.push(el('polyline', { 'class': 'we-rspring' }, anim));
+  for (i = 0; i < N; i++) rm.push(el('circle', { cx: XA + i * PITCH, r: 7, 'class': 'we-res' }, anim));
+  for (i = 0; i < N; i++) mm.push(el('circle', { cx: XA + i * PITCH, r: 10, 'class': 'we-mass' }, anim));
   function zig(x1, y1, x2, y2, n, a) {
     var dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L, p = [x1 + ',' + y1];
     for (var k = 0; k < n; k++) {
@@ -108,46 +135,58 @@
   var slider = root.querySelector('.we-slider'), readout = root.querySelector('.we-readout');
   var playBtn = root.querySelector('.we-play');
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var freq = 0.55, phase = 0, playing = !reduce, last = null, cur = bloch(freq);
+  var freq = 0.55, phase = 0, playing = !reduce, last = null, cur = bloch(freq), sol = solve(freq);
 
   function setFreq(v) {
     freq = Math.max(WMIN, Math.min(WTOP, v));
     if (Math.abs(freq - 1) < 0.002) freq = 1.002;
     cur = bloch(freq);
+    sol = solve(freq);
     slider.value = freq.toFixed(3);
     var y = Y(freq);
     fLines.forEach(function (l) { l.setAttribute('y1', y); l.setAttribute('y2', y); });
     grip.setAttribute('y', y - 11);
+    var tr = Math.hypot(sol.t[0], sol.t[1]) * 100;
+    var trText = 'Transmitted amplitude: ' + (tr < 0.1 ? 'below 0.1' : tr < 10 ? tr.toFixed(1) : tr.toFixed(0)) + '% of the incoming wave.';
     if (cur.prop) {
       dotP.setAttribute('cx', PX[0] + (PX[1] - PX[0]) * cur.q / Math.PI); dotP.setAttribute('cy', y);
       dotP.style.display = ''; dotA.style.display = 'none';
-      readout.innerHTML = '<strong>ω/ω₀ = ' + freq.toFixed(2) + ': the wave propagates.</strong> Phase change per cell is ' + (cur.q / Math.PI).toFixed(2) + 'π.';
+      readout.innerHTML = '<strong>ω/ω₀ = ' + freq.toFixed(2) + ': pass band.</strong> ' + trText;
     } else {
       dotA.setAttribute('cx', AX[0] + (AX[1] - AX[0]) * Math.min(cur.decay, AMAX) / AMAX); dotA.setAttribute('cy', y);
       dotA.style.display = ''; dotP.style.display = 'none';
-      readout.innerHTML = '<strong>ω/ω₀ = ' + freq.toFixed(2) + ': inside the bandgap, the wave decays.</strong> Amplitude falls by a factor of ' + Math.exp(cur.decay).toFixed(1) + ' per cell.';
+      readout.innerHTML = '<strong>ω/ω₀ = ' + freq.toFixed(2) + ': bandgap.</strong> ' + trText;
     }
     draw();
   }
   function draw() {
-    var f = respFactor(freq);
-    f = Math.sign(f) * Math.min(Math.abs(f), 1.4);
-    var ux = [], uy = [];
-    for (var n = 0; n < T; n++) {
-      var taper = n < N ? 1 : Math.pow(1 - (n - N + 1) / (NP + 0.5), 2);
-      var amp = Math.exp(-cur.decay * n) * taper;
-      if (!cur.prop && cur.sign < 0 && n % 2) amp = -amp;
-      var c = Math.cos(phase - (cur.prop ? cur.q : 0) * n);
-      var u = amp * c;
-      var ym = YM + AU * u, yr = YR + AV * f * u;
-      uy.push(ym);
-      mm[n].setAttribute('cy', ym.toFixed(1));
-      rm[n].setAttribute('cy', yr.toFixed(1));
-      rsp[n].setAttribute('points', zig(X0 + n * PITCH, +ym.toFixed(1), X0 + n * PITCH, +yr.toFixed(1), 5, 4));
+    var cp = Math.cos(phase), sp = Math.sin(phase), kap = freq / SPEED;
+    var f = 1 / (1 - freq * freq);
+    f = Math.sign(f) * Math.min(Math.abs(f), 1.3);
+    var re = function (z) { return z[0] * cp - z[1] * sp; }, n, px;
+    var pts = [];
+    for (px = 0; px <= XA; px += 5) {
+      var xi = (px - XA) / PITCH, c1 = Math.cos(kap * xi), s1 = Math.sin(kap * xi);
+      /* incident e^{-i k x} + reflected r e^{+i k x} */
+      var z = [c1 + sol.r[0] * c1 - sol.r[1] * s1, -s1 + sol.r[0] * s1 + sol.r[1] * c1];
+      pts.push(px + ',' + (YM + AU * re(z)).toFixed(1));
     }
-    for (n = 0; n < T - 1; n++) {
-      spr[n].setAttribute('points', zig(X0 + n * PITCH, +uy[n].toFixed(1), X0 + (n + 1) * PITCH, +uy[n + 1].toFixed(1), 5, 4));
+    lineL.setAttribute('points', pts.join(' '));
+    pts = [];
+    for (px = XB; px <= WIDTH; px += 5) {
+      var xr = (px - XB) / PITCH, c2 = Math.cos(kap * xr), s2 = Math.sin(kap * xr);
+      pts.push(px + ',' + (YM + AU * re([sol.t[0] * c2 + sol.t[1] * s2, sol.t[1] * c2 - sol.t[0] * s2])).toFixed(1));
     }
+    lineR.setAttribute('points', pts.join(' '));
+    var ys = [];
+    for (n = 0; n < N; n++) {
+      var d = re(sol.u[n]), x = XA + n * PITCH, ym = +(YM + AU * d).toFixed(1), yr = +(YR + AV * f * d).toFixed(1);
+      ys.push(ym);
+      mm[n].setAttribute('cy', ym);
+      rm[n].setAttribute('cy', yr);
+      rsp[n].setAttribute('points', zig(x, ym, x, yr, 5, 4));
+    }
+    for (n = 0; n < N - 1; n++) spr[n].setAttribute('points', zig(XA + n * PITCH, ys[n], XA + (n + 1) * PITCH, ys[n + 1], 5, 5));
   }
   function tick(t) {
     if (last !== null && playing) { phase += (t - last) / 1000 * freq * 2 * Math.PI * 0.6; draw(); }

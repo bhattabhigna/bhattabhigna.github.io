@@ -12,10 +12,6 @@ author_profile: true
 
 **Low-frequency vibration isolation in sandwich structures (IISc Bengaluru).** Under my ANRF National Postdoctoral Fellowship, I am studying wave propagation in metamaterial-based sandwich structures for aerospace applications.
 
-## Recent work
-
-- **Disordered metamaterials.** Wave dispersion and localisation in disordered systems, using uncertainty quantification and statistical modelling (IIT Delhi).
-
 ## Research directions and interests
 
 - Extending metamaterial design for practical vibration control.

@@ -1,0 +1,22 @@
+---
+layout: archive
+title: "Paper videos"
+permalink: /videos/
+author_profile: true
+sitemap: false
+---
+
+{% include base_path %}
+
+<p>Short video summaries of my research papers.</p>
+
+{% assign shown = 0 %}
+{% for post in site.publications reversed %}
+  {% if post.youtube %}
+    {% assign shown = shown | plus: 1 %}
+    <h2><a href="{{ base_path }}{{ post.url }}">{{ post.title }}</a></h2>
+    <p><em>{{ post.venue }}</em></p>
+    {% include youtube.html id=post.youtube title=post.title %}
+  {% endif %}
+{% endfor %}
+{% if shown == 0 %}<p>The first video is coming soon.</p>{% endif %}

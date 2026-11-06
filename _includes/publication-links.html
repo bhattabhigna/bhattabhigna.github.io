@@ -1,0 +1,6 @@
+<p class="pub-citation">{{ include.pub.citation }}</p>
+<p class="pub-links">
+  {% if include.pub.doi %}<a class="pub-link" href="https://doi.org/{{ include.pub.doi }}">Journal page (DOI)</a>{% endif %}
+  {% if include.pub.paperurl %}<a class="pub-link" href="{{ include.pub.paperurl }}">Manuscript PDF</a>{% endif %}
+  {% if include.pub.youtube %}<a class="pub-link" href="https://www.youtube.com/watch?v={{ include.pub.youtube }}">Video summary</a>{% endif %}
+</p>

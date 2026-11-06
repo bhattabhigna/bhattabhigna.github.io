@@ -5,10 +5,11 @@ category: manuscripts
 permalink: /publication/2023-01-01-flexural-wave-propagation-metabeam
 excerpt: 'Analyzes flexural wave propagation in a rigid-elastic combined metabeam structure.'
 date: 2023-01-01
-venue: 'Journal of Vibration and Acoustics, 145(1)'
-slidesurl: 
+venue: 'Journal of Vibration and Acoustics, 145(1), 011006'
 paperurl: https://bhattabhigna.github.io/files/Wave_RECM.pdf
 citation: 'Bhatt, A., & Banerjee, A. (2023). Flexural wave propagation in rigid elastic combined metabeam. Journal of Vibration and Acoustics, 145(1), 011006.'
+doi: 10.1115/1.4055174
+youtube:  # paste the YouTube video ID here, e.g. dQw4w9WgXcQ
 ---
 
 The contents above will be part of a list of publications, if the user clicks the link for the publication than the contents of section will be rendered as a full page, allowing you to provide more information about the paper for the reader. When publications are displayed as a single page, the contents of the above "citation" field will automatically be included below this section in a smaller font.

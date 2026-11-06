@@ -1,7 +1,6 @@
 ---
-layout: archive
-title: "CV"
 permalink: /cv/
+title: "Curriculum Vitae"
 author_profile: true
 redirect_from:
   - /resume
@@ -9,56 +8,50 @@ redirect_from:
 
 {% include base_path %}
 
-Education
-======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+## Appointments
 
-Work experience
-======
-* Spring 2024: Academic Pages Collaborator
-  * GitHub University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
+- **ANRF National Postdoctoral Fellow**, Department of Aerospace Engineering, IISc Bengaluru, 2025–present
+- **Research Associate**, Department of Applied Mechanics, IIT Delhi, 2025
+- **Research Associate**, Department of Civil Engineering, IIT Delhi (Naval Research Board, DRDO project), 2025
+- **Assistant Professor (TEQIP-III)**, Jorhat Engineering College, Assam, 2018–2020
+- **Assistant Professor (TEQIP-III)**, Institute of Technology Gopeshwar, Uttarakhand, 2018
+- **Research Scholar / Research Fellow**, IIT Gandhinagar, 2013–2017
+- **Assistant Engineer**, Surat Municipal Corporation, 2013
 
-* Fall 2015: Research Assistant
-  * GitHub University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+## Education
 
-* Summer 2015: Research Assistant
-  * GitHub University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
-  
-Skills
-======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+- **Ph.D., Civil Engineering (Structural Engineering)**, IIT Delhi, 2025. Thesis: *Wave Dispersion Characteristics in 1D Metamaterial Systems*. Supervisor: Prof. Arnab Banerjee. Distinction in Doctoral Research.
+- **M.Tech., Structural Engineering**, SVNIT Surat, 2013. CGPA 8.50/10.
+- **B.Tech., Civil Engineering**, SVNIT Surat, 2011. CGPA 8.05/10.
 
-Publications
-======
-  <ul>{% for post in site.publications reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks reversed %}
-    {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul>
-  
-Teaching
-======
-  <ul>{% for post in site.teaching reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
+## Fellowships and awards
+
+- National Postdoctoral Fellowship (N-PDF), Anusandhan National Research Foundation, 2025
+- Distinction in Doctoral Research, IIT Delhi (top 10% of Ph.D. graduates), 2026
+- Early Doc Fellowship, IIT Delhi
+- Research Excellence Travel Award, IIT Delhi (META 2024)
+- International Travel Support, Department of Science and Technology, India (ECCOMAS 2024)
+- Research Student Travel Award, IIT Delhi (Phononics 2023)
+- Superior Research Paper Award, International Conference on Futuristic Technologies, 2021
+
+## Patent
+
+- *Device for Absorbing Vibration*, India, Application No. IN 202311027136. Filed April 2023, granted August 2026.
+
+## Publications
+
+Five first-author journal articles. [See the full list]({{ base_path }}/publications/).
+
+## Talks
+
+[See all conference presentations]({{ base_path }}/talks/).
+
+## Teaching
+
+Taught undergraduate and postgraduate structural engineering courses and supervised undergraduate projects at Jorhat Engineering College and Institute of Technology Gopeshwar. Teaching languages: English and Hindi.
+
+## Skills
+
+- **Analysis:** dispersion and bandgap analysis, Bloch–Floquet analysis, multiple-scales perturbation, nonlinear dynamics, uncertainty quantification, optimisation, machine learning
+- **Software:** MATLAB, Python, COMSOL Multiphysics, Mathematica, Maple, LaTeX
+- **Experiments:** laser Doppler vibrometry, shaker testing, high-speed imaging, 3D printing, LabVIEW data acquisition

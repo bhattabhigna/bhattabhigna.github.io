@@ -7,12 +7,30 @@ redirect_from:
   - /about.html
 ---
 
-I am Dr. Abhigna Bhatt, a passionate researcher and postdoctoral fellow specializing in wave propagation, metamaterials, and vibration isolation. My academic journey culminated with a PhD from IIT Delhi, where I developed analytical and experimental methods to understand and engineer wave dispersion in complex mechanical systems, including nonlinear and coupled metamaterials.
+{% include base_path %}
 
-My research focuses on designing novel metamaterial structures that can control vibration and wave transmission, with applications spanning noise reduction, structural health monitoring, and advanced engineering materials. I have published extensively in leading journals such as *Journal of Sound and Vibration*, *Physical Review E*, and *Physics Letters A*, and have presented my work at international conferences including ECCOMAS and META.
+<p class="lead">I study how elastic waves travel through engineered structures, and how to design metamaterials that stop unwanted vibration.</p>
 
-In my work, I combine rigorous analytical modeling, numerical simulations, and experimental validation to uncover new physical phenomena such as double attenuation peaks and relative resonance in mechanical systems. I am deeply motivated by the challenge of bridging theory and practice to develop solutions that can transform how we control vibrations and waves in engineering.
+I am an ANRF National Postdoctoral Fellow in the Department of Aerospace Engineering at the Indian Institute of Science (IISc), Bengaluru, working with Prof. Rajesh Chaunsali on wave propagation and low-frequency vibration isolation in sandwich structures for aerospace applications.
 
-Beyond research, I am committed to advancing knowledge through collaboration and mentoring young researchers. Balancing a demanding research career with family life has strengthened my resilience, organization, and passion for continuous learning.
+I received my Ph.D. in Civil Engineering (Structural Engineering) from IIT Delhi under Prof. Arnab Banerjee, with a Distinction in Doctoral Research. My work combines analytical theory, numerical simulation and laboratory measurement, using multiple-scales perturbation methods, Bloch–Floquet analysis, finite-element modelling and laser Doppler vibrometry.
 
-Feel free to explore my website to learn more about my projects, publications, and contributions to the field of mechanical metamaterials. I welcome opportunities for collaboration, discussion, and innovation.
+## Research themes
+
+<div class="theme-grid">
+  <div class="theme-card"><h3>Bandgap theory</h3><p>Closed-form results for attenuation peaks and band boundaries in metamaterials.</p></div>
+  <div class="theme-card"><h3>Vibration isolation</h3><p>Rigid-elastic metabeams, relative resonance and low-frequency isolation.</p></div>
+  <div class="theme-card"><h3>Nonlinear waves</h3><p>How nonlinear stiffness and damping change wave dispersion.</p></div>
+</div>
+
+[See my current research directions]({{ base_path }}/research/)
+
+## Recent milestones
+
+{% include milestone-list.html items=site.data.milestones limit=5 %}
+
+[All milestones]({{ base_path }}/milestones/)
+
+## Get in touch
+
+I welcome conversations about collaboration in wave mechanics, metamaterials and vibration control. You can reach me at [abhigna.bhatt@gmail.com](mailto:abhigna.bhatt@gmail.com).

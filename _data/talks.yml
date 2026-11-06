@@ -1,0 +1,46 @@
+# Newest first. To add slides: put the file in /files/talks/ and set slides.
+# To add pictures: put them in /images/talks/ and list them under photos.
+- title: "The bandgap characteristics of wave dispersion in monocoupled metamaterial"
+  event: "META 2024"
+  place: "Toyama, Japan"
+  date: "July 2024"
+  type: "Oral"
+  authors: "A. Bhatt, A. Banerjee"
+  award: "Supported by the Research Excellence Travel Award, IIT Delhi"
+  slides:
+  photos: []
+- title: "Metadamping and stiffness nonlinearity effects on wave dispersion in beam on cubic nonlinear foundation: A method of multiscale"
+  event: "ECCOMAS 2024"
+  place: "Lisbon, Portugal"
+  date: "June 2024"
+  type: "Oral"
+  authors: "A. Bhatt, A. Banerjee"
+  award: "Supported by International Travel Support, DST, India"
+  slides:
+  photos: []
+- title: "Wave dispersion in beam on cubic nonlinear foundation: A method of multi spatio-temporal scale"
+  event: "Interfacial Engineering Workshop"
+  place: "IISc Bengaluru, India"
+  date: "January 2024"
+  type: "Poster"
+  authors: "A. Bhatt, A. Banerjee"
+  slides:
+  photos: []
+- title: "Wave dispersion in monocoupled system with inertial amplifier and embedded resonator"
+  event: "Phononics 2023"
+  place: "University of Manchester, UK"
+  date: "June 2023"
+  type: "Oral"
+  authors: "A. Bhatt, A. Banerjee"
+  award: "Supported by the Research Student Travel Award, IIT Delhi"
+  slides:
+  photos: []
+- title: "Flexural wave dispersion relationship of infinitely long elastic rigid combined beam"
+  event: "International Conference on Futuristic Technologies"
+  place: "IIT Delhi, India"
+  date: "January 2021"
+  type: "Paper"
+  authors: "A. Bhatt, R. Prasad, A. Banerjee"
+  award: "Superior Research Paper Award"
+  slides:
+  photos: []

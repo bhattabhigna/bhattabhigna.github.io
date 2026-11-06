@@ -1,0 +1,23 @@
+/* Additions for the research, talks, milestones and video pages */
+.lead { font-size: 1.1em; line-height: 1.6; }
+.theme-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1em; margin: 1em 0 1.5em; }
+.theme-card { border: 1px solid var(--global-border-color); border-top: 3px solid var(--global-link-color); border-radius: 4px; padding: 0.9em 1em; font-size: 0.9em; }
+.theme-card h3 { margin: 0 0 0.4em; font-size: 1.05em; }
+.theme-card p { margin: 0; }
+.timeline { list-style: none; margin: 1em 0; padding: 0; }
+.timeline li { display: grid; grid-template-columns: 6.5em 1fr; gap: 1em; padding: 0.6em 0; border-bottom: 1px solid var(--global-border-color); font-size: 0.95em; }
+.timeline .when { font-weight: 600; white-space: nowrap; }
+.timeline img { display: block; max-width: 320px; width: 100%; margin-top: 0.5em; border-radius: 4px; }
+.talk { padding: 1em 0; border-bottom: 1px solid var(--global-border-color); }
+.talk h3 { margin: 0 0 0.25em; font-size: 1.05em; }
+.talk p { margin: 0.2em 0; font-size: 0.92em; }
+.talk-badge { display: inline-block; padding: 0 0.5em; border: 1px solid var(--global-border-color); border-radius: 3px; font-size: 0.85em; margin-right: 0.3em; }
+.talk-photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.5em; margin-top: 0.6em; }
+.talk-photos img { width: 100%; height: 130px; object-fit: cover; border-radius: 4px; }
+.pub-citation { font-size: 0.9em; }
+.pub-links { display: flex; flex-wrap: wrap; gap: 0.5em 1em; font-size: 0.9em; }
+.video-frame { position: relative; aspect-ratio: 16 / 9; margin: 1em 0; }
+.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+@media (max-width: 480px) {
+  .timeline li { grid-template-columns: 1fr; gap: 0.2em; }
+}

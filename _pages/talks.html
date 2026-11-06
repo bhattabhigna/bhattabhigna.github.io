@@ -5,12 +5,17 @@ permalink: /talks/
 author_profile: true
 ---
 
-{% if site.talkmap_link == true %}
-
-<p style="text-decoration:underline;"><a href="/talkmap.html">See a map of all the places I've given a talk!</a></p>
-
-{% endif %}
-
-{% for post in site.talks reversed %}
-  {% include archive-single-talk.html %}
+{% for t in site.data.talks %}
+<div class="talk">
+  <h3>{{ t.title }}</h3>
+  <p><span class="talk-badge">{{ t.type }}</span><strong>{{ t.event }}</strong>, {{ t.place }}, {{ t.date }}</p>
+  <p>{{ t.authors }}</p>
+  {% if t.award %}<p><em>{{ t.award }}</em></p>{% endif %}
+  {% if t.slides %}<p><a href="{{ t.slides }}">Slides</a></p>{% endif %}
+  {% if t.photos and t.photos.size > 0 %}
+  <div class="talk-photos">
+    {% for photo in t.photos %}<img src="{{ photo }}" alt="{{ t.event }}" loading="lazy">{% endfor %}
+  </div>
+  {% endif %}
+</div>
 {% endfor %}

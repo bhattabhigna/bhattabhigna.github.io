@@ -1,0 +1,5 @@
+<ul class="timeline">
+  {% for m in include.items limit: include.limit %}
+  <li><span class="when">{{ m.when }}</span><span>{{ m.text | markdownify | remove: "<p>" | remove: "</p>" }}{% if m.image %}<img src="{{ m.image }}" alt="">{% endif %}</span></li>
+  {% endfor %}
+</ul>

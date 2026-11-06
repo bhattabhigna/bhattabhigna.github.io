@@ -73,3 +73,12 @@ html[data-theme="dark"] .we-dot-prop { fill: #6fd3e0; }
 html[data-theme="dark"] .we-dot-att { fill: #ff8f7a; }
 html[data-theme="dark"] .we-grid { opacity: 0.35; }
 html[data-theme="dark"] .we-medium { stroke: #6fd3e0; }
+.we-cp, .we-cg { stroke-width: 2; }
+.we-cp { stroke: #7a5cc0; }
+.we-cg { stroke: #d9891c; }
+.we-lab-cp, .we-lab-cg { font-family: Georgia, serif; font-style: italic; font-size: 20px; fill: var(--global-text-color); }
+.we-pt-cp { fill: #7a5cc0; }
+.we-pt-cg { fill: #d9891c; }
+.we-env { fill: none; stroke: var(--global-text-color-light); stroke-width: 1; stroke-dasharray: 4 4; }
+.concept-eq { overflow-x: auto; font-size: 0.95em; }
+.concept-params { font-size: 0.9em; }

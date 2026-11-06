@@ -8,6 +8,8 @@ main:
     url: /publications/
   - title: "Talks"
     url: /talks/
+  - title: "Concept Demonstrations"
+    url: /concept-demonstrations/
   # - title: "Videos"
   #   url: /videos/
   # - title: "Wave Lab"

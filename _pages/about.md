@@ -9,7 +9,7 @@ redirect_from:
 
 {% include base_path %}
 
-<figure class="site-figure hero-figure"><img src="{{ base_path }}/images/schematics/hero-waves.svg" alt="Animated illustration of a wave losing amplitude as it passes through a chain of masses with local resonators"><figcaption><a href="{{ base_path }}/research/#wave-explorer">Try the interactive version: choose a frequency and watch the chain respond.</a></figcaption></figure>
+<figure class="site-figure hero-figure"><img src="{{ base_path }}/images/schematics/hero-waves.svg" alt="Animated illustration of a wave losing amplitude as it passes through a chain of masses with local resonators"><figcaption><a href="{{ base_path }}/concept-demonstrations/">Try the interactive version: choose a frequency and watch the chain respond.</a></figcaption></figure>
 
 <p class="lead">I study how elastic waves travel through engineered structures, and how to design metamaterials that stop unwanted vibration.</p>
 

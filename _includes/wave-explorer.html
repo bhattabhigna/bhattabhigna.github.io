@@ -1,5 +1,6 @@
 <div id="wave-explorer" class="wave-explorer">
   <svg class="we-anim" viewBox="0 0 720 275" role="img" aria-label="Animation of a chain of masses with internal resonators, between two non-dispersive media, responding at the chosen frequency"></svg>
+  <svg class="we-packet" viewBox="0 0 720 180" role="img" aria-label="Wave packet with a marker on one crest moving at the phase velocity and a marker on the envelope moving at the group velocity"></svg>
   <p class="we-readout" aria-live="polite"></p>
   <svg class="we-plot" viewBox="0 0 720 385" role="img" aria-label="Dispersion and attenuation curves of a mass-in-mass chain, with a movable frequency line"></svg>
   <div class="we-controls">
@@ -12,7 +13,7 @@
       <button type="button" class="we-play">Pause</button>
     </div>
   </div>
-  <p class="we-caption">Drag the frequency line on the plots, or use the slider, and see whether the vibration crosses the metamaterial. The plots show Bloch dispersion of an infinite mass-in-mass chain with mass ratio 0.5. The animation solves an 8-cell chain between two semi-infinite non-dispersive media, whose far ends do not reflect. Waves can still reflect where they meet the chain, which shows up on the left. Displacement is drawn vertically, and resonator motion is capped for display.</p>
+  <p class="we-caption">Drag the frequency line on the plots, or use the slider. On the left plot, the slope of the line from the origin gives the phase velocity, and the slope of the tangent gives the group velocity (plot axes are not to equal scale). The motion is drawn vertically, and resonator motion is capped for display.</p>
   <noscript><img src="{{ base_path }}/images/schematics/bandgap.svg" alt="Dispersion and attenuation curves of a mass-in-mass chain"></noscript>
 </div>
 <script src="{{ base_path }}/assets/js/wave-explorer.js" defer></script>

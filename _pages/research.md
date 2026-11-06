@@ -8,9 +8,7 @@ author_profile: true
 
 <p class="lead">My research asks how periodic and locally resonant structures can be designed to control waves and isolate vibration, particularly at low frequencies.</p>
 
-## Explore a bandgap
-
-{% include wave-explorer.html %}
+<figure class="site-figure"><img src="{{ base_path }}/images/schematics/bandgap.svg" alt="Dispersion and attenuation curves of a mass-in-mass chain, with a shaded bandgap"><figcaption>Inside a bandgap, waves decay instead of propagating. <a href="{{ base_path }}/concept-demonstrations/">Explore this interactively in Concept Demonstrations.</a></figcaption></figure>
 
 ## Current focus
 

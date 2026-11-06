@@ -78,13 +78,16 @@
   el('path', { d: dProp, 'class': 'we-curve-prop' }, plot);
   el('path', { d: dAtt, 'class': 'we-curve-att' }, plot);
 
+  var secant = el('line', { 'class': 'we-cp' }, plot), tangent = el('line', { 'class': 'we-cg' }, plot);
+  var labP = el('text', { 'class': 'we-lab-cp' }, plot, 'c'), labG = el('text', { 'class': 'we-lab-cg' }, plot, 'c');
+  el('tspan', { dy: 5, 'font-size': 14 }, labP, 'p'); el('tspan', { dy: 5, 'font-size': 14 }, labG, 'g');
   var fLines = [PX, AX].map(function (x) { return el('line', { x1: x[0], x2: x[1], y1: 0, y2: 0, 'class': 'we-fline' }, plot); });
   var dotP = el('circle', { r: 7, 'class': 'we-dot-prop' }, plot);
   var dotA = el('circle', { r: 7, 'class': 'we-dot-att' }, plot);
   var grip = el('rect', { x: 388, y: 0, width: 14, height: 22, rx: 4, 'class': 'we-grip' }, plot);
 
   /* ---------- Scattering solution ---------- */
-  var N = 8, Z = Math.sqrt(1 + MU), SPEED = 1 / Math.sqrt(1 + MU);
+  var N = 12, Z = Math.sqrt(1 + MU), SPEED = 1 / Math.sqrt(1 + MU);
   function cdiv(a, b) { var d = b[0] * b[0] + b[1] * b[1]; return [(a[0] * b[0] + a[1] * b[1]) / d, (a[1] * b[0] - a[0] * b[1]) / d]; }
   function cmul(a, b) { return [a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0]]; }
   function solve(w) {
@@ -110,8 +113,8 @@
 
   /* ---------- Chain animation ---------- */
   var anim = root.querySelector('.we-anim');
-  var XA = 170, PITCH = 54, XB = XA + (N - 1) * PITCH, YM = 96, YR = 208, AU = 19, AV = 21, WIDTH = 720;
-  el('rect', { x: XA - 27, y: 44, width: XB - XA + 54, height: 222, rx: 6, 'class': 'we-meta' }, anim);
+  var XA = 140, PITCH = 40, XB = XA + (N - 1) * PITCH, YM = 96, YR = 208, AU = 19, AV = 21, WIDTH = 720;
+  el('rect', { x: XA - 20, y: 44, width: XB - XA + 40, height: 222, rx: 6, 'class': 'we-meta' }, anim);
   el('text', { x: (XA + XB) / 2, y: 30, 'text-anchor': 'middle', 'class': 'we-head' }, anim, 'Metamaterial');
   el('text', { x: 4, y: 30, 'class': 'we-tick' }, anim, 'Non-dispersive');
   el('text', { x: WIDTH - 4, y: 30, 'text-anchor': 'end', 'class': 'we-tick' }, anim, 'Non-dispersive');
@@ -119,8 +122,8 @@
   var spr = [], rsp = [], mm = [], rm = [], i;
   for (i = 0; i < N - 1; i++) spr.push(el('polyline', { 'class': 'we-spring' }, anim));
   for (i = 0; i < N; i++) rsp.push(el('polyline', { 'class': 'we-rspring' }, anim));
-  for (i = 0; i < N; i++) rm.push(el('circle', { cx: XA + i * PITCH, r: 7, 'class': 'we-res' }, anim));
-  for (i = 0; i < N; i++) mm.push(el('circle', { cx: XA + i * PITCH, r: 10, 'class': 'we-mass' }, anim));
+  for (i = 0; i < N; i++) rm.push(el('circle', { cx: XA + i * PITCH, r: 6, 'class': 'we-res' }, anim));
+  for (i = 0; i < N; i++) mm.push(el('circle', { cx: XA + i * PITCH, r: 9, 'class': 'we-mass' }, anim));
   function zig(x1, y1, x2, y2, n, a) {
     var dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1, nx = -dy / L, ny = dx / L, p = [x1 + ',' + y1];
     for (var k = 0; k < n; k++) {
@@ -129,6 +132,60 @@
     }
     p.push(x2 + ',' + y2);
     return p.join(' ');
+  }
+
+  /* ---------- Wave packet panel: phase and group velocity ---------- */
+  var pk = root.querySelector('.we-packet'), PW = 720, PBASE = 124, PAMP = 46, CELL = 16, LDOM = 45, SIG = 5;
+  el('text', { x: 4, y: 22, 'class': 'we-head' }, pk, 'Wave packet in the chain');
+  el('circle', { cx: 420, cy: 16, r: 7, 'class': 'we-pt-cp' }, pk);
+  el('text', { x: 433, y: 22, 'class': 'we-tick' }, pk, 'crest, phase velocity');
+  el('circle', { cx: 420, cy: 40, r: 7, 'class': 'we-pt-cg' }, pk);
+  el('text', { x: 433, y: 46, 'class': 'we-tick' }, pk, 'envelope, group velocity');
+  var pkLine = el('polyline', { 'class': 'we-medium' }, pk), pkEnvU = el('polyline', { 'class': 'we-env' }, pk), pkEnvD = el('polyline', { 'class': 'we-env' }, pk);
+  var pkCp = el('circle', { r: 7, 'class': 'we-pt-cp' }, pk), pkCg = el('circle', { r: 7, 'class': 'we-pt-cg' }, pk);
+  var pkMsg = el('text', { x: 360, y: PBASE + 6, 'text-anchor': 'middle', 'class': 'we-tick' }, pk, 'No propagating wave in the bandgap');
+  var vel = { cp: 0, cg: 0 }, tp = 0;
+  function velocities(w) {
+    var h = 1e-4, a = bloch(w - h), b = bloch(w + h), q = bloch(w).q;
+    var c0 = a.prop ? a.q : q, c1 = b.prop ? b.q : q, dw = (b.prop ? w + h : w) - (a.prop ? w - h : w);
+    return { cp: w / q, cg: dw / (c1 - c0) };
+  }
+  function drawPacket() {
+    if (!cur.prop) return;
+    var q = cur.q, xg = (vel.cg * tp) % LDOM, pts = [], up = [], dn = [], px;
+    var off = freq * tp - q * vel.cg * tp;
+    for (px = 0; px <= PW; px += 3) {
+      var s = px / CELL - xg - LDOM / 2 + LDOM * 0;
+      s = ((s + LDOM / 2) % LDOM + LDOM) % LDOM - LDOM / 2;
+      var e = Math.exp(-s * s / (2 * SIG * SIG));
+      pts.push(px + ',' + (PBASE - PAMP * e * Math.cos(q * s - off)).toFixed(1));
+      up.push(px + ',' + (PBASE - PAMP * e).toFixed(1));
+      dn.push(px + ',' + (PBASE + PAMP * e).toFixed(1));
+    }
+    pkLine.setAttribute('points', pts.join(' '));
+    pkEnvU.setAttribute('points', up.join(' '));
+    pkEnvD.setAttribute('points', dn.join(' '));
+    var cen = LDOM / 2 + xg;
+    var lam = 2 * Math.PI / q, W = lam * Math.max(1, Math.ceil(2.4 * SIG / lam));
+    var sc = ((off / q) % W + W) % W; if (sc > W / 2) sc -= W;
+    var xc = (((cen + sc) % LDOM) + LDOM) % LDOM, xe = ((cen % LDOM) + LDOM) % LDOM;
+    pkCp.setAttribute('cx', (xc * CELL).toFixed(1));
+    pkCp.setAttribute('cy', (PBASE - PAMP * Math.exp(-sc * sc / (2 * SIG * SIG))).toFixed(1));
+    pkCg.setAttribute('cx', (xe * CELL).toFixed(1));
+    pkCg.setAttribute('cy', PBASE - PAMP);
+  }
+  function setLine(line, lab, w0, q0, slope, dx, dy) {
+    /* omega = w0 + slope (q - q0), clipped to the propagation panel */
+    var q1 = 0, q2 = Math.PI;
+    if (slope > 1e-9) {
+      q1 = Math.max(q1, q0 - w0 / slope);
+      q2 = Math.min(q2, q0 + (WMAX - w0) / slope);
+    }
+    var X = function (qv) { return PX[0] + (PX[1] - PX[0]) * qv / Math.PI; };
+    var yA = Y(w0 + slope * (q1 - q0)), yB = Y(w0 + slope * (q2 - q0));
+    line.setAttribute('x1', X(q1)); line.setAttribute('y1', yA);
+    line.setAttribute('x2', X(q2)); line.setAttribute('y2', yB);
+    lab.setAttribute('x', X(q2) + dx); lab.setAttribute('y', Math.max(yB + dy, 60));
   }
 
   /* ---------- State ---------- */
@@ -146,18 +203,24 @@
     var y = Y(freq);
     fLines.forEach(function (l) { l.setAttribute('y1', y); l.setAttribute('y2', y); });
     grip.setAttribute('y', y - 11);
-    var tr = Math.hypot(sol.t[0], sol.t[1]) * 100;
-    var trText = 'Transmitted amplitude: ' + (tr < 0.1 ? 'below 0.1' : tr < 10 ? tr.toFixed(1) : tr.toFixed(0)) + '% of the incoming wave.';
+    tp = 0;
+    var shown = cur.prop ? '' : 'none';
+    [secant, tangent, labP, labG, pkLine, pkEnvU, pkEnvD, pkCp, pkCg].forEach(function (n) { n.style.display = shown; });
+    pkMsg.style.display = cur.prop ? 'none' : '';
     if (cur.prop) {
+      vel = velocities(freq);
       dotP.setAttribute('cx', PX[0] + (PX[1] - PX[0]) * cur.q / Math.PI); dotP.setAttribute('cy', y);
       dotP.style.display = ''; dotA.style.display = 'none';
-      readout.innerHTML = '<strong>ω/ω₀ = ' + freq.toFixed(2) + ': pass band.</strong> ' + trText;
+      readout.innerHTML = '<strong>ω/ω₀ = ' + freq.toFixed(2) + ': pass band.</strong> Phase velocity = ' + vel.cp.toFixed(2) + ' Lω₀, group velocity = ' + vel.cg.toFixed(2) + ' Lω₀.';
+      setLine(secant, labP, freq, cur.q, vel.cp, -20, -8);
+      setLine(tangent, labG, freq, cur.q, vel.cg, -22, 22);
     } else {
       dotA.setAttribute('cx', AX[0] + (AX[1] - AX[0]) * Math.min(cur.decay, AMAX) / AMAX); dotA.setAttribute('cy', y);
       dotA.style.display = ''; dotP.style.display = 'none';
-      readout.innerHTML = '<strong>ω/ω₀ = ' + freq.toFixed(2) + ': bandgap.</strong> ' + trText;
+      readout.innerHTML = '<strong>ω/ω₀ = ' + freq.toFixed(2) + ': bandgap.</strong> Waves decay along the chain, so phase and group velocity are not defined here.';
     }
     draw();
+    drawPacket();
   }
   function draw() {
     var cp = Math.cos(phase), sp = Math.sin(phase), kap = freq / SPEED;
@@ -186,10 +249,14 @@
       rm[n].setAttribute('cy', yr);
       rsp[n].setAttribute('points', zig(x, ym, x, yr, 5, 4));
     }
-    for (n = 0; n < N - 1; n++) spr[n].setAttribute('points', zig(XA + n * PITCH, ys[n], XA + (n + 1) * PITCH, ys[n + 1], 5, 5));
+    for (n = 0; n < N - 1; n++) spr[n].setAttribute('points', zig(XA + n * PITCH, ys[n], XA + (n + 1) * PITCH, ys[n + 1], 5, 4));
   }
   function tick(t) {
-    if (last !== null && playing) { phase += (t - last) / 1000 * freq * 2 * Math.PI * 0.6; draw(); }
+    if (last !== null && playing) {
+      var dt = (t - last) / 1000 * 2 * Math.PI * 0.6;
+      phase += dt * freq; tp += dt;
+      draw(); drawPacket();
+    }
     last = t;
     requestAnimationFrame(tick);
   }

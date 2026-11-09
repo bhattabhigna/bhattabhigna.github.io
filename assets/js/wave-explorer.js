@@ -25,7 +25,7 @@
 
   /* ---------- Plots ---------- */
   var plot = root.querySelector('.we-plot');
-  var PY0 = 316, PY1 = 48, PX = [86, 370], AX = [420, 704], AMAX = 3;
+  var PY0 = 316, PY1 = 48, PX = [86, 86 + Math.PI * (316 - 48) / 2.6], AX = [450, 704], AMAX = 3;
   var Y = function (w) { return PY0 + (PY1 - PY0) * w / WMAX; };
   var gaps = [], prev = null, start = null;
   for (var w = 0.0005; w <= WMAX; w += 0.0005) {
@@ -54,8 +54,8 @@
   [['0', 0], ['1', 1 / 3], ['2', 2 / 3], ['3+', 1]].forEach(function (t) {
     el('text', { x: AX[0] + (AX[1] - AX[0]) * t[1], y: PY0 + 26, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, t[0]);
   });
-  el('text', { x: 228, y: PY0 + 56, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, 'Phase constant, α');
-  el('text', { x: 562, y: PY0 + 56, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, 'Attenuation constant, β');
+  el('text', { x: (PX[0] + PX[1]) / 2, y: PY0 + 56, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, 'Phase constant, α');
+  el('text', { x: (AX[0] + AX[1]) / 2, y: PY0 + 56, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, 'Attenuation constant, β');
   el('text', { x: PX[0], y: 32, 'class': 'we-head' }, plot, 'Propagation');
   el('text', { x: AX[0], y: 32, 'class': 'we-head' }, plot, 'Attenuation');
   el('text', { transform: 'translate(22 182) rotate(-90)', 'text-anchor': 'middle', 'class': 'we-tick' }, plot, 'Frequency ratio, η');
@@ -82,7 +82,7 @@
   var fLines = [PX, AX].map(function (x) { return el('line', { x1: x[0], x2: x[1], y1: 0, y2: 0, 'class': 'we-fline' }, plot); });
   var dotP = el('circle', { r: 7, 'class': 'we-dot-prop' }, plot);
   var dotA = el('circle', { r: 7, 'class': 'we-dot-att' }, plot);
-  var grip = el('rect', { x: 388, y: 0, width: 14, height: 22, rx: 4, 'class': 'we-grip' }, plot);
+  var grip = el('rect', { x: 423, y: 0, width: 14, height: 22, rx: 4, 'class': 'we-grip' }, plot);
 
   /* ---------- Scattering solution ---------- */
   var N = 12, Z0 = Math.sqrt(2 * (1 + THETA));

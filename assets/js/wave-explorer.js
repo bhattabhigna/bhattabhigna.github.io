@@ -25,7 +25,7 @@
 
   /* ---------- Plots ---------- */
   var plot = root.querySelector('.we-plot');
-  var PY0 = 316, PY1 = 48, PX = [86, 86 + Math.PI * (316 - 48) / 2.6], AX = [450, 704], AMAX = 3;
+  var PY0 = 316, PY1 = 48, UNIT = (316 - 48) / 2.6, PX = [86, 86 + Math.PI * UNIT], AMAX = 2.5, AX = [440, 440 + AMAX * UNIT];
   var Y = function (w) { return PY0 + (PY1 - PY0) * w / WMAX; };
   var gaps = [], prev = null, start = null;
   for (var w = 0.0005; w <= WMAX; w += 0.0005) {
@@ -43,16 +43,21 @@
     [0, 0.5, 1, 1.5, 2, 2.5].forEach(function (t) {
       el('line', { x1: x[0], x2: x[1], y1: Y(t), y2: Y(t), 'class': 'we-grid' }, plot);
     });
+    for (var gx = 0.5; x[0] + gx * UNIT < x[1] - 1; gx += 0.5) {
+      el('line', { x1: x[0] + gx * UNIT, x2: x[0] + gx * UNIT, y1: PY1, y2: PY0, 'class': 'we-grid' }, plot);
+    }
     el('path', { d: 'M' + x[0] + ' ' + PY1 + 'V' + PY0 + 'H' + x[1], 'class': 'we-axis' }, plot);
   });
   [0, 0.5, 1, 1.5, 2, 2.5].forEach(function (t) {
     el('text', { x: PX[0] - 10, y: Y(t) + 6, 'text-anchor': 'end', 'class': 'we-tick' }, plot, String(t));
   });
-  [['0', 0], ['π/2', 0.5], ['π', 1]].forEach(function (t) {
-    el('text', { x: PX[0] + (PX[1] - PX[0]) * t[1], y: PY0 + 26, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, t[0]);
+  [['0', 0], ['1', 1], ['2', 2], ['3', 3]].forEach(function (t) {
+    el('text', { x: PX[0] + t[1] * UNIT, y: PY0 + 26, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, t[0]);
   });
-  [['0', 0], ['1', 1 / 3], ['2', 2 / 3], ['3+', 1]].forEach(function (t) {
-    el('text', { x: AX[0] + (AX[1] - AX[0]) * t[1], y: PY0 + 26, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, t[0]);
+  el('line', { x1: PX[1], x2: PX[1], y1: PY0, y2: PY0 + 8, 'class': 'we-axis' }, plot);
+  el('text', { x: PX[1] + 4, y: PY0 - 6, 'class': 'we-tick' }, plot, 'π');
+  [['0', 0], ['1', 1], ['2', 2], ['2.5+', 2.5]].forEach(function (t) {
+    el('text', { x: AX[0] + t[1] * UNIT, y: PY0 + 26, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, t[0]);
   });
   el('text', { x: (PX[0] + PX[1]) / 2, y: PY0 + 56, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, 'Phase constant, α');
   el('text', { x: (AX[0] + AX[1]) / 2, y: PY0 + 56, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, 'Attenuation constant, β');
@@ -82,7 +87,7 @@
   var fLines = [PX, AX].map(function (x) { return el('line', { x1: x[0], x2: x[1], y1: 0, y2: 0, 'class': 'we-fline' }, plot); });
   var dotP = el('circle', { r: 7, 'class': 'we-dot-prop' }, plot);
   var dotA = el('circle', { r: 7, 'class': 'we-dot-att' }, plot);
-  var grip = el('rect', { x: 423, y: 0, width: 14, height: 22, rx: 4, 'class': 'we-grip' }, plot);
+  var grip = el('rect', { x: (PX[1] + AX[0]) / 2 - 7, y: 0, width: 14, height: 22, rx: 4, 'class': 'we-grip' }, plot);
 
   /* ---------- Scattering solution ---------- */
   var N = 12, Z0 = Math.sqrt(2 * (1 + THETA));

@@ -50,7 +50,7 @@
 .we-head { font-size: 20px; font-weight: 600; fill: var(--global-text-color); }
 .we-tick { font-size: 18px; fill: var(--global-text-color-light); }
 .we-gap { fill: var(--global-text-color); opacity: 0.09; }
-.we-grid { stroke: var(--global-border-color); stroke-width: 1; }
+.we-grid { stroke: #c3ccd2; stroke-width: 1; }
 .we-axis { fill: none; stroke: var(--global-text-color-light); stroke-width: 1.2; }
 .we-curve-prop, .we-curve-att { fill: none; stroke-width: 2.5; stroke-linejoin: round; }
 .we-curve-prop { stroke: #2f7f93; }
@@ -71,7 +71,7 @@ html[data-theme="dark"] .we-curve-prop { stroke: #6fd3e0; }
 html[data-theme="dark"] .we-curve-att { stroke: #ff8f7a; }
 html[data-theme="dark"] .we-dot-prop { fill: #6fd3e0; }
 html[data-theme="dark"] .we-dot-att { fill: #ff8f7a; }
-html[data-theme="dark"] .we-grid { opacity: 0.35; }
+html[data-theme="dark"] .we-grid { stroke: #4a5a63; }
 html[data-theme="dark"] .we-medium { stroke: #6fd3e0; }
 .we-cp, .we-cg { stroke-width: 2; }
 .we-cp { stroke: #7a5cc0; }

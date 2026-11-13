@@ -200,9 +200,17 @@
         el('rect', { x: x[0], y: Y(Math.min(g.hi, WMAX)), width: x[1] - x[0], height: Y(g.lo) - Y(Math.min(g.hi, WMAX)), 'class': 'we-gap' + (g.lr ? ' be-gap-lr' : '') }, gapLayer);
       });
       var h = Y(g.lo) - Y(Math.min(g.hi, WMAX));
+      /* A Bragg gap has one edge pinned at eta = n (node mode: a node at every resonator).
+         Its other edge is the antinode mode, pushed up by m_eff < 0 or down by m_eff > 0. */
+      var bragg = g.n && !g.lr && g.hi <= WMAX, above = bragg && Math.abs(g.lo - g.n) < Math.abs(g.hi - g.n);
+      if (bragg && h >= 3) {
+        edgeLabel(above ? g.lo : g.hi, !above, 'node mode');
+        edgeLabel(above ? g.hi : g.lo, above, 'antinode mode');
+      }
       if (h < 15) return;
-      var txt = g.lr && g.n ? 'Merged: LR + Bragg ' + g.n : g.lr ? 'LR gap' : 'Bragg gap ' + g.n;
-      el('text', { x: PX[0] + 8, y: (Y(g.lo) + Y(Math.min(g.hi, WMAX))) / 2 + 5, 'text-anchor': 'start', 'class': 'be-gaplab' + (g.lr ? ' be-gaplab-lr' : '') }, gapLayer, txt);
+      var lab = el('text', { x: PX[0] + 8, y: (Y(g.lo) + Y(Math.min(g.hi, WMAX))) / 2 + 5, 'text-anchor': 'start', 'class': 'be-gaplab' + (g.lr ? ' be-gaplab-lr' : '') }, gapLayer, g.lr && g.n ? 'Merged: LR + Bragg ' + g.n : g.lr ? 'LR gap' : 'Bragg gap ' + g.n);
+      if (bragg) meffText(lab, above ? ' < 0' : ' > 0');
+      else if (g.lr && !g.n) meffText(lab, ' → ±∞');
     });
     var dq = '', da = '', lastQ = null, lastA = false;
     GRID.forEach(function (g, i) {
@@ -222,6 +230,22 @@
     wrLines.forEach(function (l) { l.style.display = show ? '' : 'none'; if (show) { l.setAttribute('y1', Y(ETAR)); l.setAttribute('y2', Y(ETAR)); } });
     wrLab.style.display = show ? '' : 'none';
     if (show) wrLab.setAttribute('y', Y(ETAR) + 5);
+  }
+  /* Append ", m_eff <rest>" to a label */
+  function meffText(lab, rest) {
+    el('tspan', {}, lab, ', m');
+    el('tspan', { dy: 4, 'font-size': 11 }, lab, 'eff');
+    el('tspan', { dy: -4 }, lab, rest);
+  }
+  /* Label a band edge on the attenuation panel, outside the gap, if there is room */
+  function edgeLabel(eta, up, txt) {
+    var room = 15 / UNIT, y = Y(eta);
+    if (up ? eta + room > WMAX : eta - room < 0) return;
+    for (var i = 0; i < GAPS.length; i++) {
+      var o = GAPS[i];
+      if (up ? (o.lo > eta + 1e-6 && o.lo < eta + room) : (o.hi < eta - 1e-6 && o.hi > eta - room)) return;
+    }
+    el('text', { x: AX[1] - 6, y: up ? y - 4 : y + 14, 'text-anchor': 'end', 'class': 'be-edgelab' }, gapLayer, txt);
   }
   function setLine(line, lab, w0, x0, slope, dx, dy) {
     /* Line through (x0, w0) in plot units (qa/pi, eta) with the given slope, clipped to the panel */

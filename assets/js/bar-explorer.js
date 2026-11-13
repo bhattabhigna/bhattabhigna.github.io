@@ -207,6 +207,11 @@
         edgeLabel(above ? g.lo : g.hi, !above, 'node mode');
         edgeLabel(above ? g.hi : g.lo, above, 'antinode mode');
       }
+      /* Merged gap: the node mode is gone; the edges are the Bragg antinode mode and the LR out-of-phase mode */
+      if (g.lr && g.n && g.hi <= WMAX) {
+        edgeLabel(g.lo, false, 'antinode mode');
+        edgeLabel(g.hi, true, 'out-of-phase mode');
+      }
       if (h < 15) return;
       var lab = el('text', { x: PX[0] + 8, y: (Y(g.lo) + Y(Math.min(g.hi, WMAX))) / 2 + 5, 'text-anchor': 'start', 'class': 'be-gaplab' + (g.lr ? ' be-gaplab-lr' : '') }, gapLayer, g.lr && g.n ? 'Merged: LR + Bragg ' + g.n : g.lr ? 'LR gap' : 'Bragg gap ' + g.n);
       if (bragg) meffText(lab, above ? ' < 0' : ' > 0');

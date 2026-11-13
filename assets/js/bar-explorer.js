@@ -214,6 +214,12 @@
       }
       /* A thin gap is labelled only if it is the LR gap: it sits at low frequency, where the right of the panel is empty */
       var thin = h < 15;
+      if (thin && bragg) {
+        /* A thin Bragg gap sits where the curves cross it in the propagation panel, so label it on the attenuation panel */
+        var tb = el('text', { x: AX[0] + 24, y: (Y(g.lo) + Y(g.hi)) / 2 + 5, 'class': 'be-gaplab' }, gapLayer, 'Bragg ' + g.n);
+        meffText(tb, above ? ' < 0' : ' > 0');
+        return;
+      }
       if (thin && !(g.lr && !g.n)) return;
       var lab = el('text', { x: thin ? PX[1] - 8 : PX[0] + 8, y: (Y(g.lo) + Y(Math.min(g.hi, WMAX))) / 2 + 5, 'text-anchor': thin ? 'end' : 'start', 'class': 'be-gaplab' + (g.lr ? ' be-gaplab-lr' : '') }, gapLayer, g.lr && g.n ? 'Merged: LR + Bragg ' + g.n : g.lr ? 'LR gap' : 'Bragg gap ' + g.n);
       if (bragg) meffText(lab, above ? ' < 0' : ' > 0');

@@ -10,7 +10,7 @@
   var root = document.getElementById('bar-explorer');
   if (!root) return;
   var NS = 'http://www.w3.org/2000/svg', PI = Math.PI;
-  var MU = 0.25, N = 10, WMAX = 2.6, WTOP = 2.5, WMIN = 0.02, QMAX = 2.5, BMAX = 2, VMAX = 2;
+  var MU = 0.25, N = 10, WMAX = 2.6, WTOP = 2.5, WMIN = 0.02, QMAX = 2.5, BMAX = 2.5;
   function el(name, attrs, parent, text) {
     var e = document.createElementNS(NS, name);
     for (var k in attrs) e.setAttribute(k, attrs[k]);
@@ -152,61 +152,51 @@
 
   /* ---------- Plots ---------- */
   var plot = root.querySelector('.we-plot');
-  var PY0 = 300, PY1 = 61, UNIT = (PY0 - PY1) / WMAX, PX = [72, 72 + QMAX * UNIT], AX = [342, 492], VX = [526, 692];
+  var PY0 = 316, PY1 = 48, UNIT = (PY0 - PY1) / WMAX, PX = [86, 86 + QMAX * UNIT], AX = [430, 430 + BMAX * UNIT];
   var Y = function (w) { return PY0 + (PY1 - PY0) * w / WMAX; };
   var XQ = function (q) { return PX[0] + UNIT * q / PI; };
   var XB = function (b) { return AX[0] + (AX[1] - AX[0]) * Math.min(b, BMAX) / BMAX; };
-  var XV = function (v) { return VX[0] + (VX[1] - VX[0]) * Math.min(v, VMAX) / VMAX; };
   var gapLayer = el('g', {}, plot);
-  [PX, AX, VX].forEach(function (x, p) {
+  [PX, AX].forEach(function (x, p) {
     [0, 0.5, 1, 1.5, 2, 2.5].forEach(function (t) {
       el('line', { x1: x[0], x2: x[1], y1: Y(t), y2: Y(t), 'class': 'we-grid' }, plot);
     });
     var gx;
     if (p === 0) for (gx = 0.5; gx < QMAX - 0.01; gx += 0.5) el('line', { x1: XQ(gx * PI), x2: XQ(gx * PI), y1: PY1, y2: PY0, 'class': 'we-grid' }, plot);
-    else for (gx = 1; gx < 4; gx++) el('line', { x1: x[0] + gx * (x[1] - x[0]) / 4, x2: x[0] + gx * (x[1] - x[0]) / 4, y1: PY1, y2: PY0, 'class': 'we-grid' }, plot);
+    else for (gx = 0.5; gx < BMAX - 0.01; gx += 0.5) el('line', { x1: XB(gx), x2: XB(gx), y1: PY1, y2: PY0, 'class': 'we-grid' }, plot);
     el('path', { d: 'M' + x[0] + ' ' + PY1 + 'V' + PY0 + 'H' + x[1], 'class': 'we-axis' }, plot);
   });
   [0, 0.5, 1, 1.5, 2, 2.5].forEach(function (t) {
     el('text', { x: PX[0] - 10, y: Y(t) + 6, 'text-anchor': 'end', 'class': 'we-tick' }, plot, String(t));
   });
   [0, 1, 2].forEach(function (t) { el('text', { x: XQ(t * PI), y: PY0 + 26, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, String(t)); });
-  [['0', 0], ['1', 1], ['2+', 2]].forEach(function (t) { el('text', { x: XB(t[1]), y: PY0 + 26, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, t[0]); });
-  [['0', 0], ['1', 1], ['2+', 2]].forEach(function (t) { el('text', { x: XV(t[1]), y: PY0 + 26, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, t[0]); });
+  [['0', 0], ['1', 1], ['2', 2], ['2.5+', 2.5]].forEach(function (t) { el('text', { x: XB(t[1]), y: PY0 + 26, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, t[0]); });
   el('text', { x: (PX[0] + PX[1]) / 2, y: PY0 + 56, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, 'Wavenumber, qa/π');
-  el('text', { x: (AX[0] + AX[1]) / 2, y: PY0 + 56, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, 'Decay, β');
-  el('text', { x: (VX[0] + VX[1]) / 2, y: PY0 + 56, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, 'Speed / c');
+  el('text', { x: (AX[0] + AX[1]) / 2, y: PY0 + 56, 'text-anchor': 'middle', 'class': 'we-tick' }, plot, 'Attenuation constant, β');
   el('text', { x: PX[0], y: 32, 'class': 'we-head' }, plot, 'Propagation');
   el('text', { x: AX[0], y: 32, 'class': 'we-head' }, plot, 'Attenuation');
-  el('text', { x: VX[0], y: 32, 'class': 'we-head' }, plot, 'Velocities');
   var yl = el('text', { transform: 'translate(20 ' + ((PY0 + PY1) / 2) + ') rotate(-90)', 'text-anchor': 'middle', 'class': 'we-tick' }, plot, 'Frequency, ω/ω');
   el('tspan', { dy: 5, 'font-size': 13 }, yl, 'B');
   /* Bare bar: q = w / c, and its speed */
   el('line', { x1: XQ(0), y1: Y(0), x2: XQ(QMAX * PI), y2: Y(QMAX), 'class': 'be-light' }, plot);
-  el('line', { x1: XV(1), x2: XV(1), y1: PY1, y2: PY0, 'class': 'be-light' }, plot);
-  var lgP = el('text', { x: VX[0] + 6, y: 54, 'class': 'we-lab-cp be-leg' }, plot, 'c');
-  el('tspan', { dy: 4, 'font-size': 12 }, lgP, 'p');
-  var lgG = el('text', { x: VX[0] + 46, y: 54, 'class': 'we-lab-cg be-leg' }, plot, 'c');
-  el('tspan', { dy: 4, 'font-size': 12 }, lgG, 'g');
   var curveLayer = el('g', {}, plot);
-  var wrLines = [AX, VX].map(function (x) { return el('line', { x1: x[0], x2: x[1], 'class': 'be-wr' }, plot); });
-  var wrLab = el('text', { x: VX[1] + 3, 'class': 'be-wr-lab' }, plot, 'ω');
+  var wrLines = [AX].map(function (x) { return el('line', { x1: x[0], x2: x[1], 'class': 'be-wr' }, plot); });
+  var wrLab = el('text', { x: AX[1] + 3, 'class': 'be-wr-lab' }, plot, 'ω');
   el('tspan', { dy: 4, 'font-size': 12 }, wrLab, 'r');
 
   var secant = el('line', { 'class': 'we-cp' }, plot), tangent = el('line', { 'class': 'we-cg' }, plot);
   var labP = el('text', { 'class': 'we-lab-cp' }, plot, 'c'), labG = el('text', { 'class': 'we-lab-cg' }, plot, 'c');
   el('tspan', { dy: 5, 'font-size': 14 }, labP, 'p'); el('tspan', { dy: 5, 'font-size': 14 }, labG, 'g');
-  var fLines = [PX, AX, VX].map(function (x) { return el('line', { x1: x[0], x2: x[1], y1: 0, y2: 0, 'class': 'we-fline' }, plot); });
+  var fLines = [PX, AX].map(function (x) { return el('line', { x1: x[0], x2: x[1], y1: 0, y2: 0, 'class': 'we-fline' }, plot); });
   var dotP = el('circle', { r: 7, 'class': 'we-dot-prop' }, plot);
   var dotA = el('circle', { r: 7, 'class': 'we-dot-att' }, plot);
-  var dotVp = el('circle', { r: 6, 'class': 'be-dot-cp' }, plot), dotVg = el('circle', { r: 6, 'class': 'be-dot-cg' }, plot);
   var grip = el('rect', { x: (PX[1] + AX[0]) / 2 - 7, y: 0, width: 14, height: 22, rx: 4, 'class': 'we-grip' }, plot);
 
   function drawCurves() {
     while (gapLayer.firstChild) gapLayer.removeChild(gapLayer.firstChild);
     while (curveLayer.firstChild) curveLayer.removeChild(curveLayer.firstChild);
     GAPS.forEach(function (g) {
-      [PX, AX, VX].forEach(function (x) {
+      [PX, AX].forEach(function (x) {
         el('rect', { x: x[0], y: Y(Math.min(g.hi, WMAX)), width: x[1] - x[0], height: Y(g.lo) - Y(Math.min(g.hi, WMAX)), 'class': 'we-gap' + (g.lr ? ' be-gap-lr' : '') }, gapLayer);
       });
       var h = Y(g.lo) - Y(Math.min(g.hi, WMAX));
@@ -214,14 +204,12 @@
       var txt = g.lr && g.n ? 'Merged: LR + Bragg ' + g.n : g.lr ? 'LR gap' : 'Bragg gap ' + g.n;
       el('text', { x: PX[0] + 8, y: (Y(g.lo) + Y(Math.min(g.hi, WMAX))) / 2 + 5, 'text-anchor': 'start', 'class': 'be-gaplab' + (g.lr ? ' be-gaplab-lr' : '') }, gapLayer, txt);
     });
-    var dq = '', da = '', dp = '', dg = '', lastQ = null, lastA = false, lastV = null;
+    var dq = '', da = '', lastQ = null, lastA = false;
     GRID.forEach(function (g, i) {
       var y = Y(g.eta).toFixed(2);
       if (g.prop) {
         var nb = g.band !== lastQ;
         if (g.q <= QMAX * PI) dq += (nb ? 'M' : 'L') + XQ(g.q).toFixed(2) + ' ' + y;
-        dp += (nb ? 'M' : 'L') + XV(g.cp).toFixed(2) + ' ' + y;
-        dg += (nb ? 'M' : 'L') + XV(g.cg).toFixed(2) + ' ' + y;
         lastQ = g.band; lastA = false;
       } else {
         da += (lastA ? 'L' : 'M') + XB(g.decay).toFixed(2) + ' ' + y;
@@ -230,8 +218,6 @@
     });
     el('path', { d: dq, 'class': 'we-curve-prop' }, curveLayer);
     el('path', { d: da, 'class': 'we-curve-att' }, curveLayer);
-    el('path', { d: dp, 'class': 'be-curve-cp' }, curveLayer);
-    el('path', { d: dg, 'class': 'be-curve-cg' }, curveLayer);
     var show = !KINF && ETAR > 0 && ETAR <= WMAX;
     wrLines.forEach(function (l) { l.style.display = show ? '' : 'none'; if (show) { l.setAttribute('y1', Y(ETAR)); l.setAttribute('y2', Y(ETAR)); } });
     wrLab.style.display = show ? '' : 'none';
@@ -373,7 +359,7 @@
     grip.setAttribute('y', y - 11);
     tp = 0;
     var shown = cur.prop ? '' : 'none';
-    [secant, tangent, labP, labG, dotP, dotVp, dotVg, pkLine, pkEnvU, pkEnvD, pkCp, pkCg].forEach(function (n) { n.style.display = shown; });
+    [secant, tangent, labP, labG, dotP, pkLine, pkEnvU, pkEnvD, pkCp, pkCg].forEach(function (n) { n.style.display = shown; });
     pkMsg.style.display = cur.prop ? 'none' : '';
     dotA.style.display = cur.prop ? 'none' : '';
     setPacket();
@@ -382,8 +368,6 @@
     if (cur.prop) {
       var xq = cur.q / PI;
       dotP.setAttribute('cx', XQ(cur.q)); dotP.setAttribute('cy', y);
-      dotVp.setAttribute('cx', XV(cur.cp)); dotVp.setAttribute('cy', y);
-      dotVg.setAttribute('cx', XV(cur.cg)); dotVg.setAttribute('cy', y);
       readout.innerHTML = '<strong>ω/' + WB + ' = ' + fmt(freq, 3) + ': propagation band.</strong> Phase velocity = ' + fmt(cur.cp) + 'c, group velocity = ' + fmt(cur.cg) + 'c.' + tTxt;
       setLine(secant, labP, freq, xq, cur.cp, -20, -8);
       setLine(tangent, labG, freq, xq, cur.cg, -22, 22);

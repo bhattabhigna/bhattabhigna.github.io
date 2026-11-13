@@ -117,22 +117,11 @@ html[data-theme="dark"] .we-medium { stroke: #6fd3e0; }
 .be-gaplab-lr { fill: #2f6db3; }
 .be-wr { stroke: #2f6db3; stroke-width: 1.5; stroke-dasharray: 2 3; }
 .be-wr-lab { font-family: Georgia, serif; font-style: italic; font-size: 18px; fill: #2f6db3; }
-.be-leg { font-size: 18px; }
-.be-curve-cp, .be-curve-cg { fill: none; stroke-width: 2.5; stroke-linejoin: round; }
-.be-curve-cp { stroke: #7a5cc0; }
-.be-curve-cg { stroke: #d9891c; }
-.be-dot-cp, .be-dot-cg { stroke: var(--global-bg-color); stroke-width: 2; }
-.be-dot-cp { fill: #7a5cc0; }
-.be-dot-cg { fill: #d9891c; }
 .we-anim .be-bar { fill: none; stroke: #e8eef1; stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; }
 .we-anim .be-attach { fill: #ff8f7a; }
 html[data-theme="dark"] .be-gap-lr { fill: #7fb2ff; opacity: 0.14; }
 html[data-theme="dark"] .be-gaplab-lr, html[data-theme="dark"] .be-wr-lab { fill: #7fb2ff; }
 html[data-theme="dark"] .be-wr { stroke: #7fb2ff; }
-html[data-theme="dark"] .be-curve-cp { stroke: #c9b6ff; }
-html[data-theme="dark"] .be-dot-cp { fill: #c9b6ff; }
-html[data-theme="dark"] .be-curve-cg { stroke: #ffd166; }
-html[data-theme="dark"] .be-dot-cg { fill: #ffd166; }
 
 /* Concept demonstrations page: cards linking to each demonstration */
 .demo-nav { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1em; margin: 1em 0 2em; }

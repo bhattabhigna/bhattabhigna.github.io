@@ -1,0 +1,11 @@
+{% comment %} Previous / next links between demonstrations, in the order set by "order" in each file of _demos {% endcomment %}
+{% assign demos = site.demos | sort: "order" %}
+{% assign idx = -1 %}
+{% for d in demos %}{% if d.url == page.url %}{% assign idx = forloop.index0 %}{% endif %}{% endfor %}
+{% assign prev_i = idx | minus: 1 %}
+{% assign next_i = idx | plus: 1 %}
+<nav class="demo-pager" aria-label="More demonstrations">
+  <span class="demo-pager-prev">{% if idx > 0 %}{% assign p = demos[prev_i] %}<a href="{{ p.url | relative_url }}"><small>Previous</small>← {{ p.title }}</a>{% endif %}</span>
+  <a class="demo-pager-all" href="{{ '/concept-demonstrations/' | relative_url }}">All demonstrations</a>
+  <span class="demo-pager-next">{% if idx >= 0 and next_i < demos.size %}{% assign n = demos[next_i] %}<a href="{{ n.url | relative_url }}"><small>Next</small>{{ n.title }} →</a>{% endif %}</span>
+</nav>

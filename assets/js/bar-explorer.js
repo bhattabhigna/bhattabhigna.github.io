@@ -212,8 +212,10 @@
         edgeLabel(g.lo, false, 'antinode mode');
         edgeLabel(g.hi, true, 'out-of-phase mode');
       }
-      if (h < 15) return;
-      var lab = el('text', { x: PX[0] + 8, y: (Y(g.lo) + Y(Math.min(g.hi, WMAX))) / 2 + 5, 'text-anchor': 'start', 'class': 'be-gaplab' + (g.lr ? ' be-gaplab-lr' : '') }, gapLayer, g.lr && g.n ? 'Merged: LR + Bragg ' + g.n : g.lr ? 'LR gap' : 'Bragg gap ' + g.n);
+      /* A thin gap is labelled only if it is the LR gap: it sits at low frequency, where the right of the panel is empty */
+      var thin = h < 15;
+      if (thin && !(g.lr && !g.n)) return;
+      var lab = el('text', { x: thin ? PX[1] - 8 : PX[0] + 8, y: (Y(g.lo) + Y(Math.min(g.hi, WMAX))) / 2 + 5, 'text-anchor': thin ? 'end' : 'start', 'class': 'be-gaplab' + (g.lr ? ' be-gaplab-lr' : '') }, gapLayer, g.lr && g.n ? 'Merged: LR + Bragg ' + g.n : g.lr ? 'LR gap' : 'Bragg gap ' + g.n);
       if (bragg) meffText(lab, above ? ' < 0' : ' > 0');
       else if (g.lr && !g.n) meffText(lab, ' → ±∞');
     });

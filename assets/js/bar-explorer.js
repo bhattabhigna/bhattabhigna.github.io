@@ -65,11 +65,31 @@
         cur = null;
       }
     }
-    if (gs !== null) GAPS.push([gs, WMAX]);
+    /* Exact band edges, where |F| = 1 (alpha = 0 or pi): by bisection between the last pass-band
+       sample and the first gap sample, or exactly at the integer where two bands touch */
+    function edge(ePass, eGap) {
+      for (var it = 0; it < 50; it++) {
+        var mid = (ePass + eGap) / 2;
+        if (Math.abs(Fd(mid)) <= 1) ePass = mid; else eGap = mid;
+      }
+      return ePass;
+    }
+    BANDS.forEach(function (bd) {
+      var e0 = GRID[bd.i0].eta, e1 = GRID[bd.i1].eta;
+      if (bd.i0 === 0) bd.lo = 0;
+      else if (GRID[bd.i0 - 1].prop) bd.lo = Math.floor(e0);
+      else bd.lo = edge(e0, GRID[bd.i0 - 1].eta);
+      if (bd.i1 === GRID.length - 1) bd.hi = WMAX;
+      else if (GRID[bd.i1 + 1].prop) bd.hi = Math.floor(GRID[bd.i1 + 1].eta);
+      else bd.hi = edge(e1, GRID[bd.i1 + 1].eta);
+    });
+    GAPS = [];
+    var prevHi = 0;
+    BANDS.forEach(function (bd) { if (bd.lo - prevHi > 1e-9) GAPS.push([prevHi, bd.lo]); prevHi = bd.hi; });
+    if (WMAX - prevHi > 1e-9) GAPS.push([prevHi, WMAX]);
     BANDS.forEach(function (bd) {
       var a0 = GRID[bd.i0].a, a1 = GRID[bd.i1].a, mid = GRID[Math.round((bd.i0 + bd.i1) / 2)];
       bd.s = a1 >= a0 ? 1 : -1;
-      bd.lo = GRID[bd.i0].eta - DE / 2; bd.hi = GRID[bd.i1].eta + DE / 2;
       /* Branch s*alpha + 2 pi m closest to the bare-bar wavenumber at the band centre */
       var best = 1e9;
       for (var m = 0; m <= 3; m++) {
@@ -225,15 +245,31 @@
       if (bragg) meffText(lab, above ? ' < 0' : ' > 0');
       else if (g.lr && !g.n) meffText(lab, ' → ±∞');
     });
-    var dq = '', da = '', lastQ = null, lastA = false;
+    var dq = '', da = '', lastQ = null, lastA = false, gapNow = null;
+    /* Wavenumber at a band edge: alpha is exactly 0 or pi there */
+    function edgePt(bd, eta) {
+      var al = Fd(eta) < 0 ? PI : 0;
+      if (bd.lo === 0 && eta === 0) al = 0;
+      var q = bd.s * al + 2 * PI * bd.m;
+      return q <= QMAX * PI + 1e-9 ? XQ(q).toFixed(2) + ' ' + Y(eta).toFixed(2) : null;
+    }
     GRID.forEach(function (g, i) {
       var y = Y(g.eta).toFixed(2);
+      if (lastQ && (!g.prop || g.band !== lastQ)) { var pe = edgePt(lastQ, lastQ.hi); if (pe && lastQ.hi < WMAX) dq += 'L' + pe; }
       if (g.prop) {
         var nb = g.band !== lastQ;
-        if (g.q <= QMAX * PI) dq += (nb ? 'M' : 'L') + XQ(g.q).toFixed(2) + ' ' + y;
+        if (nb) { var ps = edgePt(g.band, g.band.lo); if (ps) dq += 'M' + ps; }
+        if (g.q <= QMAX * PI) dq += (nb && !ps ? 'M' : 'L') + XQ(g.q).toFixed(2) + ' ' + y;
+        if (lastA && gapNow) da += 'L' + XB(0).toFixed(2) + ' ' + Y(gapNow.hi).toFixed(2);
         lastQ = g.band; lastA = false;
       } else {
-        da += (lastA ? 'L' : 'M') + XB(g.decay).toFixed(2) + ' ' + y;
+        /* The decay starts and ends at beta = 0 on the exact gap edges */
+        if (!lastA) {
+          gapNow = null;
+          for (var k = 0; k < GAPS.length; k++) if (g.eta >= GAPS[k].lo && g.eta <= GAPS[k].hi) gapNow = GAPS[k];
+          da += gapNow && gapNow.lo > 0 ? 'M' + XB(0).toFixed(2) + ' ' + Y(gapNow.lo).toFixed(2) + 'L' : 'M';
+        } else da += 'L';
+        da += XB(g.decay).toFixed(2) + ' ' + y;
         lastA = true; lastQ = null;
       }
     });

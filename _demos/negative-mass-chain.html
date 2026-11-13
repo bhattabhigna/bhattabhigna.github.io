@@ -1,0 +1,29 @@
+---
+title: "The Negative-Mass Chain"
+hook: "A mass-in-mass lattice that blocks low-frequency waves below the Bragg limit"
+topics: [Local resonance, Negative mass]
+order: 1
+icon: negative-mass-chain
+---
+
+<p class="demo-back"><a href="{{ '/concept-demonstrations/' | relative_url }}">← All demonstrations</a></p>
+
+<p class="lead">A chain of twelve unit cells sits between two non-dispersive media. Choose a frequency and see whether vibration crosses the chain, and how fast its phase and energy travel.</p>
+
+{% include wave-explorer.html %}
+
+<h2>Local resonance in phononic crystals</h2>
+<div class="eq-with-figure">
+<figure class="site-figure"><img src="{{ base_path }}/images/schematics/nm-unit-cell.svg?v=4" alt="Unit cell: masses M at nodes 1 and 4 joined by spring K, with resonators m at nodes 2 and 3 attached through springs k"></figure>
+<p>In an ordinary phononic crystal, bandgaps come from Bragg scattering, so they open only where the wavelength is comparable to the period. A locally resonant metamaterial adds an internal resonator to each cell, here a mass \(m\) on a spring \(k\). Near the resonator's natural frequency, the resonator moves out of phase with the main chain and pushes back on it, so the effective mass of the chain turns negative and waves can no longer propagate. This opens an attenuation band at the resonance frequency itself, which can be far below the Bragg limit, and lets a small structure block low-frequency vibration. The demonstration above uses the negative mass (NM) system from reference 1.</p>
+</div>
+
+<h2>References</h2>
+<ol class="concept-params">
+  <li>A. Bhatt, A. Banerjee and S. Adhikari, <a href="https://doi.org/10.1016/j.jsv.2022.117318">Closed-form solutions for attenuation peaks and band boundaries of general monocoupled systems</a>, <em>Journal of Sound and Vibration</em>, 541, 117318, 2022.</li>
+  <li>L. Brillouin, <em>Wave Propagation in Periodic Structures</em>, McGraw-Hill, 1946.</li>
+  <li>M. I. Hussein, M. J. Leamy and M. Ruzzene, Dynamics of phononic materials and structures: Historical origins, recent progress, and future outlook, <em>Applied Mechanics Reviews</em>, 66, 040802, 2014.</li>
+  <li>D. J. Colquitt, R. V. Craster and M. Makwana, <a href="https://arxiv.org/abs/1407.2059">High frequency homogenisation for elastic lattices</a>, on behaviour close to band edges.</li>
+</ol>
+
+{% include demo-pager.html %}

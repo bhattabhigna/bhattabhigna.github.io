@@ -1,0 +1,27 @@
+---
+title: "When Bragg Meets Resonance"
+hook: "Tune the resonator stiffness from zero to infinity and watch band gaps merge"
+topics: [Local resonance, Bragg scattering]
+order: 2
+icon: bragg-meets-resonance
+---
+
+<p class="demo-back"><a href="{{ '/concept-demonstrations/' | relative_url }}">← All demonstrations</a></p>
+
+<p class="lead">A uniform bar carries a mass-spring resonator in every cell. The resonator mass stays fixed while its stiffness runs from zero to infinity. Choose a stiffness and a frequency, and see how the local-resonance gap moves through the Bragg gaps and merges with each one in turn.</p>
+
+{% include bar-explorer.html %}
+
+<h2>Two kinds of gap in one bar</h2>
+<p>A periodic array of resonators can stop waves in two ways. Near the resonance frequency \(\omega_r=\sqrt{k/m}\), each resonator moves against the bar and acts as a large or negative mass, which opens a local-resonance gap. Because the resonators repeat every cell, they also scatter waves coherently and open Bragg gaps near \(\omega=n\,\omega_B\), where \(\omega_B=\pi c/a\) is the frequency at which half a wavelength fits in one cell. With \(k=0\) the resonators are detached and the bar has no gaps. As \(k\) grows, the local-resonance gap rises from zero frequency and the Bragg gaps widen. The frequency \(n\,\omega_B\) is normally a band edge whose standing wave has a node at every resonator, but when \(\omega_r=n\,\omega_B\) it falls inside a gap, and the local-resonance gap and Bragg gap \(n\) merge into one wide gap (references 1 and 2). As \(k\to\infty\) the resonators become rigid point masses: only Bragg gaps remain, and the local-resonance gap has moved to infinite frequency.</p>
+
+<h2>References</h2>
+<ol class="concept-params">
+  <li>Y. Xiao, B. R. Mace, J. Wen and X. Wen, <a href="https://doi.org/10.1016/j.physleta.2011.02.044">Formation and coupling of band gaps in a locally resonant elastic system comprising a string with attached resonators</a>, <em>Physics Letters A</em>, 375, 1485–1491, 2011.</li>
+  <li>L. Liu and M. I. Hussein, <a href="https://doi.org/10.1115/1.4004592">Wave motion in periodic flexural beams and characterization of the transition between Bragg scattering and local resonance</a>, <em>Journal of Applied Mechanics</em>, 79, 011003, 2012.</li>
+  <li>Y. Xiao et al., <a href="https://doi.org/10.1088/1367-2630/14/3/033042">Longitudinal wave band gaps in metamaterial-based elastic rods containing multi-degree-of-freedom resonators</a>, <em>New Journal of Physics</em>, 14, 033042, 2012.</li>
+  <li>L. Brillouin, <em>Wave Propagation in Periodic Structures</em>, McGraw-Hill, 1946.</li>
+  <li>M. I. Hussein, M. J. Leamy and M. Ruzzene, Dynamics of phononic materials and structures: Historical origins, recent progress, and future outlook, <em>Applied Mechanics Reviews</em>, 66, 040802, 2014.</li>
+</ol>
+
+{% include demo-pager.html %}
